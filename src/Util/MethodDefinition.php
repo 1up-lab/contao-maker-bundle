@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Contao\MakerBundle\Util;
 
-class HookDefinition
+class MethodDefinition
 {
     private $returnType;
     private $parameters;

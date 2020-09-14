@@ -12,8 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
-* @ContentElement("<?= lcfirst($class_name); ?>", category="<?= $category; ?>")
-*/
+ * @ContentElement("<?= lcfirst($class_name); ?>", category="<?= $category; ?>")
+ */
 class <?= $class_name; ?> extends AbstractContentElementController
 {
     protected function getResponse(Template $template, ContentModel $model, Request $request): Response

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\EventListener;
 
-use Contao\CoreBundle\ServiceAnnotation\Hook;
+use Contao\CoreBundle\ServiceAnnotation\Callback;
 
 /**
-* @Hook("<?= $hook; ?>")
-*/
+ * @Callback(table="<?= $table; ?>", target="<?= $target; ?>")
+ */
 class <?= $class_name; ?>
 
 {

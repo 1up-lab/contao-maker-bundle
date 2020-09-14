@@ -27,3 +27,12 @@ services:
             - "@contao_maker.generator.class"
         tags:
             - { name: maker.command }
+
+    contao_maker.maker.dca-callback:
+        class: Contao\MakerBundle\Maker\MakeDcaCallback
+        arguments:
+            - "@contao.framework"
+            - "@contao_maker.generator.class"
+            - "@contao.resource_finder"
+        tags:
+            - { name: maker.command }

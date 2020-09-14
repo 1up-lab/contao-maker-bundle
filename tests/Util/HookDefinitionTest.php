@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Contao\MakerBundle\Tests\Util;
 
-use Contao\MakerBundle\Util\HookDefinition;
+use Contao\MakerBundle\Util\MethodDefinition;
 use PHPUnit\Framework\TestCase;
 
 class HookDefinitionTest extends TestCase
@@ -24,7 +24,7 @@ class HookDefinitionTest extends TestCase
             'name' => 'type',
         ];
 
-        $hookDefinition = new HookDefinition($returnType, $parameters);
+        $hookDefinition = new MethodDefinition($returnType, $parameters);
 
         $this->assertSame($returnType, $hookDefinition->getReturnType());
         $this->assertSame($parameters, $hookDefinition->getParameters());
@@ -35,7 +35,7 @@ class HookDefinitionTest extends TestCase
         $returnType = null;
         $parameters = [];
 
-        $hookDefinition = new HookDefinition($returnType, $parameters);
+        $hookDefinition = new MethodDefinition($returnType, $parameters);
 
         $this->assertSame($returnType, $hookDefinition->getReturnType());
         $this->assertSame($parameters, $hookDefinition->getParameters());
@@ -46,7 +46,7 @@ class HookDefinitionTest extends TestCase
      */
     public function testSignatureCreation(string $signature, ?string $returnType, array $parameters): void
     {
-        $hookDefinition = new HookDefinition($returnType, $parameters);
+        $hookDefinition = new MethodDefinition($returnType, $parameters);
 
         $this->assertSame($signature, $hookDefinition->getMethodSignature('__invoke'));
     }

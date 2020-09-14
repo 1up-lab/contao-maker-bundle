@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Contao\MakerBundle\Maker;
 
 use Contao\MakerBundle\Generator\ClassGenerator;
-use Contao\MakerBundle\Util\HookDefinition;
+use Contao\MakerBundle\Util\MethodDefinition;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\DependencyBuilder;
 use Symfony\Bundle\MakerBundle\Generator;
@@ -79,7 +79,7 @@ class MakeHook extends AbstractMaker
 
         $methodName = sprintf('on%s', ucfirst($hook));
 
-        /** @var HookDefinition $definition */
+        /** @var MethodDefinition $definition */
         $definition = $availableHooks[$hook];
         $signature = $definition->getMethodSignature($methodName);
 
@@ -103,161 +103,161 @@ class MakeHook extends AbstractMaker
     private function getAvailableHooks(): array
     {
         return [
-            'activateAccount' => new HookDefinition('void', [
+            'activateAccount' => new MethodDefinition('void', [
                 'member' => '\Contao\MemberModel',
                 'module' => '\Contao\Module',
             ]),
-            'activateRecipient' => new HookDefinition('void', [
+            'activateRecipient' => new MethodDefinition('void', [
                 'mail' => 'string',
                 'recipientIds' => 'array',
                 'channelIds' => 'array',
             ]),
-            'addComment' => new HookDefinition('void', [
+            'addComment' => new MethodDefinition('void', [
                 'commentId' => 'int',
                 'commentData' => 'array',
                 'comments' => '\Contao\Comments',
             ]),
-            'addCustomRegexp' => new HookDefinition('bool', [
+            'addCustomRegexp' => new MethodDefinition('bool', [
                 'regexp' => 'string',
                 'input' => '',
                 'widget' => '\Contao\Widget',
             ]),
-            'addLogEntry' => new HookDefinition('void', [
+            'addLogEntry' => new MethodDefinition('void', [
                 'message' => 'string',
                 'func' => 'string',
                 'action' => 'string',
             ]),
-            'checkCredentials' => new HookDefinition('bool', [
+            'checkCredentials' => new MethodDefinition('bool', [
                 'username' => 'string',
                 'credentials' => 'string',
                 'user' => '\Contao\User',
             ]),
-            'closeAccount' => new HookDefinition('void', [
+            'closeAccount' => new MethodDefinition('void', [
                 'userId' => 'int',
                 'mode' => 'string',
                 'module' => '\Contao\Module',
             ]),
-            'colorizeLogEntries' => new HookDefinition('string', [
+            'colorizeLogEntries' => new MethodDefinition('string', [
                 'row' => 'array',
                 'label' => 'string',
             ]),
-            'compareThemeFiles' => new HookDefinition('string', [
+            'compareThemeFiles' => new MethodDefinition('string', [
                 'xml' => '\DOMDocument',
                 'zip' => '\Contao\ZipReader',
             ]),
-            'compileArticle' => new HookDefinition('void', [
+            'compileArticle' => new MethodDefinition('void', [
                 'template' => '\Contao\FrontendTemplate',
                 'data' => 'array',
                 'module' => '\Contao\Module',
             ]),
-            'compileDefinition' => new HookDefinition('string', [
+            'compileDefinition' => new MethodDefinition('string', [
                 'row' => 'array',
                 'writeToFile' => 'bool',
                 'vars' => 'array',
                 'parent' => 'array',
             ]),
-            'compileFormFields' => new HookDefinition('array', [
+            'compileFormFields' => new MethodDefinition('array', [
                 'fields' => 'array',
                 'formId' => 'string',
                 'form' => '\Contao\Form',
             ]),
-            'createDefinition' => new HookDefinition('?array', [
+            'createDefinition' => new MethodDefinition('?array', [
                 'key' => 'string',
                 'value' => 'string',
                 'definition' => 'string',
                 '&dataSet' => 'array',
             ]),
-            'createNewUser' => new HookDefinition('void', [
+            'createNewUser' => new MethodDefinition('void', [
                 'userId' => 'int',
                 'userData' => 'array',
                 'module' => '\Contao\Module',
             ]),
-            'customizeSearch' => new HookDefinition('void', [
+            'customizeSearch' => new MethodDefinition('void', [
                 '&pageIds' => 'array',
                 'keywords' => 'string',
                 'queryType' => 'string',
                 'fuzzy' => 'bool',
                 'module' => '\Contao\Module',
             ]),
-            'executePostActions' => new HookDefinition('void', [
+            'executePostActions' => new MethodDefinition('void', [
                 'action' => 'string',
                 'dc' => '\Contao\DataContainer',
             ]),
-            'executePreActions' => new HookDefinition('void', [
+            'executePreActions' => new MethodDefinition('void', [
                 'action' => 'string',
             ]),
-            'executeResize' => new HookDefinition('?string', [
+            'executeResize' => new MethodDefinition('?string', [
                 'image' => '\Contao\Image',
             ]),
-            'exportTheme' => new HookDefinition('void', [
+            'exportTheme' => new MethodDefinition('void', [
                 'xml' => '\DomDocument',
                 'zipArchive' => '\Contao\ZipWriter',
                 'themeId' => 'int',
             ]),
-            'extractThemeFiles' => new HookDefinition('void', [
+            'extractThemeFiles' => new MethodDefinition('void', [
                 'xml' => '\DomDocument',
                 'zipArchive' => '\Contao\ZipReader',
                 'themeId' => 'int',
                 'mapper' => 'array',
             ]),
-            'generateBreadcrumb' => new HookDefinition('array', [
+            'generateBreadcrumb' => new MethodDefinition('array', [
                 'items' => 'array',
                 'module' => '\Contao\Module',
             ]),
-            'generateFrontendUrl' => new HookDefinition('string', [
+            'generateFrontendUrl' => new MethodDefinition('string', [
                 'page' => 'array',
                 'params' => 'string',
                 'url' => 'string',
             ]),
-            'generatePage' => new HookDefinition('void', [
+            'generatePage' => new MethodDefinition('void', [
                 'pageModel' => '\Contao\PageModel',
                 'layout' => '\Contao\LayoutModel',
                 'pageRegular' => '\Contao\PageRegular',
             ]),
-            'generateXmlFiles' => new HookDefinition('void', []),
-            'getAllEvents' => new HookDefinition('array', [
+            'generateXmlFiles' => new MethodDefinition('void', []),
+            'getAllEvents' => new MethodDefinition('array', [
                 'events' => 'array',
                 'calendars' => 'array',
                 'timeStart' => 'int',
                 'timeEnd' => 'int',
                 'module' => '\Contao\Module',
             ]),
-            'getArticle' => new HookDefinition('void', [
+            'getArticle' => new MethodDefinition('void', [
                 'article' => '\Contao\ArticleModel',
             ]),
-            'getArticles' => new HookDefinition('?string', [
+            'getArticles' => new MethodDefinition('?string', [
                 'pageId' => 'int',
                 'column' => 'string',
             ]),
-            'getAttributesFromDca' => new HookDefinition('array', [
+            'getAttributesFromDca' => new MethodDefinition('array', [
                 'attributes' => 'array',
                 'dc' => ['\Contao\DataContainer', 'null'],
             ]),
-            'getCombinedFile' => new HookDefinition('string', [
+            'getCombinedFile' => new MethodDefinition('string', [
                 'content' => 'string',
                 'key' => 'string',
                 'mode' => 'string',
                 'file' => 'array',
             ]),
-            'getContentElement' => new HookDefinition('string', [
+            'getContentElement' => new MethodDefinition('string', [
                 'contentModel' => '\Contao\ContentModel',
                 'buffer' => 'string',
                 'contentElement' => '\Contao\ContentElement',
             ]),
-            'getCountries' => new HookDefinition('void', [
+            'getCountries' => new MethodDefinition('void', [
                 '&translatedCountries' => 'array',
                 'allCountries' => 'array',
             ]),
-            'getForm' => new HookDefinition('string', [
+            'getForm' => new MethodDefinition('string', [
                 'form' => '\Contao\FormModel',
                 'buffer' => 'string',
             ]),
-            'getFrontendModule' => new HookDefinition('string', [
+            'getFrontendModule' => new MethodDefinition('string', [
                 'moduleModel' => '\Contao\ModuleModel',
                 'buffer' => 'string',
                 'module' => '\Contao\Module',
             ]),
-            'getImage' => new HookDefinition('?string', [
+            'getImage' => new MethodDefinition('?string', [
                 'originalPath' => 'string',
                 'width' => 'int',
                 'height' => 'int',
@@ -267,21 +267,21 @@ class MakeHook extends AbstractMaker
                 'targetPath' => 'string',
                 'imageObject' => '\Contao\Image',
             ]),
-            'getLanguages' => new HookDefinition('void', [
+            'getLanguages' => new MethodDefinition('void', [
                 '&compiledLanguages' => 'array',
                 'languages' => 'array',
                 'langsNative' => 'array',
                 'installedOnly' => 'bool',
             ]),
-            'getPageIdFromUrl' => new HookDefinition('array', [
+            'getPageIdFromUrl' => new MethodDefinition('array', [
                 'fragments' => 'array',
             ]),
-            'getPageLayout' => new HookDefinition('void', [
+            'getPageLayout' => new MethodDefinition('void', [
                 'pageModel' => '\Contao\PageModel',
                 'layout' => '\Contao\LayoutModel',
                 'pageRegular' => '\Contao\PageRegular',
             ]),
-            'getPageStatusIcon' => new HookDefinition('string', [
+            'getPageStatusIcon' => new MethodDefinition('string', [
                 'page' => 'object',
                 'image' => 'string',
             ]),
