@@ -26,7 +26,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Finder\SplFileInfo;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\iterator;
 
 class MakeDcaCallback extends AbstractMaker
 {
@@ -50,7 +49,8 @@ class MakeDcaCallback extends AbstractMaker
     {
         $command
             ->setDescription('Creates a DCA Callback')
-            ->addArgument('className', InputArgument::OPTIONAL, sprintf('Choose a class name for your callback'));
+            ->addArgument('className', InputArgument::OPTIONAL, sprintf('Choose a class name for your callback'))
+        ;
     }
 
     public function interact(InputInterface $input, ConsoleStyle $io, Command $command): void
@@ -151,8 +151,8 @@ class MakeDcaCallback extends AbstractMaker
                 'dataContainer' => '\Contao\DataContainer',
             ]),
             'config.onsubmit' => new MethodDefinition('void', [
-                ''
-            ])
+                '',
+            ]),
         ];
     }
 }
