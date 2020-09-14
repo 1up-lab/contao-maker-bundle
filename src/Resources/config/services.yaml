@@ -1,0 +1,32 @@
+services:
+    contao_maker.generator.template:
+        class: Contao\MakerBundle\Generator\TemplateGenerator
+        arguments:
+            - "@maker.generator"
+            - "@maker.file_manager"
+
+    contao_maker.generator.class:
+        class: Contao\MakerBundle\Generator\ClassGenerator
+        arguments:
+            - "@maker.generator"
+
+    contao_maker.generator.dca:
+        class: Contao\MakerBundle\Generator\DcaGenerator
+        arguments:
+            - "@filesystem"
+            - "@maker.file_manager"
+            - "@maker.generator"
+            - "%contao.resources_paths%"
+            - "%kernel.project_dir%"
+
+    contao_maker.generator.language_file:
+        class: Contao\MakerBundle\Generator\LanguageFileGenerator
+        arguments:
+            - "@maker.file_manager"
+            - "@filesystem"
+            - "@contao_maker.xliff_merger"
+            - "%contao.resources_paths%"
+            - "%kernel.project_dir%"
+
+    contao_maker.xliff_merger:
+        class: Contao\MakerBundle\Util\XliffMerger
