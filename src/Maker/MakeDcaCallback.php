@@ -48,7 +48,7 @@ class MakeDcaCallback extends AbstractMaker
     public function configureCommand(Command $command, InputConfiguration $inputConfig): void
     {
         $command
-            ->setDescription('Creates a DCA Callback')
+            ->setDescription('Creates a dca callback')
             ->addArgument('className', InputArgument::OPTIONAL, sprintf('Choose a class name for your callback'))
         ;
     }
