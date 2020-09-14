@@ -23,7 +23,7 @@ class HookDefinition
         $this->parameters = $parameters;
     }
 
-    public function getReturnType(): string
+    public function getReturnType(): ?string
     {
         return $this->returnType;
     }
@@ -35,9 +35,8 @@ class HookDefinition
 
     public function getMethodSignature(string $methodName): string
     {
-        $template = '%s(%s)%s';
+        $template = 'public function %s(%s)%s';
 
-        $methodName = sprintf('on%s', ucfirst($methodName));
         $returnType = $this->getReturnType() ? ': '.$this->getReturnType() : '';
 
         $parameterTemplates = [];
@@ -51,9 +50,6 @@ class HookDefinition
 
             $parameterTemplate = sprintf($parameterTemplate, $paramType, $paramReference ? '&' : '', $paramName);
             $parameterTemplate = trim($parameterTemplate);
-
-            if (null !== $paramDefaultValue) {
-            }
 
             $parameterTemplates[] = $parameterTemplate;
         }
