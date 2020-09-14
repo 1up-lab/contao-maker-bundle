@@ -10,6 +10,7 @@ use Contao\CoreBundle\ServiceAnnotation\Hook;
 * @Hook("<?= $hook; ?>")
 */
 class <?= $class_name; ?>
+
 {
     <?= $signature; ?>
     {

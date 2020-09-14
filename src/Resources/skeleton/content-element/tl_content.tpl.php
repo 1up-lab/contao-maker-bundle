@@ -2,7 +2,7 @@
 <?= '<?php'; ?>
 
 
-declare(strict_type=1);
+declare(strict_types=1);
 <?php endif; ?>
 
 $GLOBALS['TL_DCA']['tl_content']['palettes'] += [

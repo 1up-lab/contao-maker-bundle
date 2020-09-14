@@ -104,8 +104,8 @@ class MakeHook extends AbstractMaker
     {
         return [
             'activateAccount' => new HookDefinition('void', [
-                'member' => 'Contao\MemberModel',
-                'module' => 'Contao\Module',
+                'member' => '\Contao\MemberModel',
+                'module' => '\Contao\Module',
             ]),
             'activateRecipient' => new HookDefinition('void', [
                 'mail' => 'string',
@@ -115,12 +115,12 @@ class MakeHook extends AbstractMaker
             'addComment' => new HookDefinition('void', [
                 'commentId' => 'int',
                 'commentData' => 'array',
-                'comments' => 'Contao\Comments',
+                'comments' => '\Contao\Comments',
             ]),
             'addCustomRegexp' => new HookDefinition('bool', [
                 'regexp' => 'string',
                 'input' => '',
-                'widget' => 'Contao\Widget',
+                'widget' => '\Contao\Widget',
             ]),
             'addLogEntry' => new HookDefinition('void', [
                 'message' => 'string',
@@ -130,12 +130,12 @@ class MakeHook extends AbstractMaker
             'checkCredentials' => new HookDefinition('bool', [
                 'username' => 'string',
                 'credentials' => 'string',
-                'user' => 'Contao\User',
+                'user' => '\Contao\User',
             ]),
             'closeAccount' => new HookDefinition('void', [
                 'userId' => 'int',
                 'mode' => 'string',
-                'module' => 'Contao\Module',
+                'module' => '\Contao\Module',
             ]),
             'colorizeLogEntries' => new HookDefinition('string', [
                 'row' => 'array',
@@ -143,12 +143,12 @@ class MakeHook extends AbstractMaker
             ]),
             'compareThemeFiles' => new HookDefinition('string', [
                 'xml' => '\DOMDocument',
-                'zip' => 'Contao\ZipReader',
+                'zip' => '\Contao\ZipReader',
             ]),
             'compileArticle' => new HookDefinition('void', [
-                'template' => 'Contao\FrontendTemplate',
+                'template' => '\Contao\FrontendTemplate',
                 'data' => 'array',
-                'module' => 'Contao\Module',
+                'module' => '\Contao\Module',
             ]),
             'compileDefinition' => new HookDefinition('string', [
                 'row' => 'array',
@@ -159,7 +159,7 @@ class MakeHook extends AbstractMaker
             'compileFormFields' => new HookDefinition('array', [
                 'fields' => 'array',
                 'formId' => 'string',
-                'form' => 'Contao\Form',
+                'form' => '\Contao\Form',
             ]),
             'createDefinition' => new HookDefinition('?array', [
                 'key' => 'string',
@@ -170,39 +170,39 @@ class MakeHook extends AbstractMaker
             'createNewUser' => new HookDefinition('void', [
                 'userId' => 'int',
                 'userData' => 'array',
-                'module' => 'Contao\Module',
+                'module' => '\Contao\Module',
             ]),
             'customizeSearch' => new HookDefinition('void', [
                 '&pageIds' => 'array',
                 'keywords' => 'string',
                 'queryType' => 'string',
                 'fuzzy' => 'bool',
-                'module' => 'Contao\Module',
+                'module' => '\Contao\Module',
             ]),
             'executePostActions' => new HookDefinition('void', [
                 'action' => 'string',
-                'dc' => 'Contao\DataContainer',
+                'dc' => '\Contao\DataContainer',
             ]),
             'executePreActions' => new HookDefinition('void', [
                 'action' => 'string',
             ]),
             'executeResize' => new HookDefinition('?string', [
-                'image' => 'Contao\Image',
+                'image' => '\Contao\Image',
             ]),
             'exportTheme' => new HookDefinition('void', [
                 'xml' => '\DomDocument',
-                'zipArchive' => 'Contao\ZipWriter',
+                'zipArchive' => '\Contao\ZipWriter',
                 'themeId' => 'int',
             ]),
             'extractThemeFiles' => new HookDefinition('void', [
                 'xml' => '\DomDocument',
-                'zipArchive' => 'Contao\ZipReader',
+                'zipArchive' => '\Contao\ZipReader',
                 'themeId' => 'int',
                 'mapper' => 'array',
             ]),
             'generateBreadcrumb' => new HookDefinition('array', [
                 'items' => 'array',
-                'module' => 'Contao\Module',
+                'module' => '\Contao\Module',
             ]),
             'generateFrontendUrl' => new HookDefinition('string', [
                 'page' => 'array',
@@ -210,9 +210,9 @@ class MakeHook extends AbstractMaker
                 'url' => 'string',
             ]),
             'generatePage' => new HookDefinition('void', [
-                'pageModel' => 'Contao\PageModel',
-                'layout' => 'Contao\LayoutModel',
-                'pageRegular' => 'Contao\PageRegular',
+                'pageModel' => '\Contao\PageModel',
+                'layout' => '\Contao\LayoutModel',
+                'pageRegular' => '\Contao\PageRegular',
             ]),
             'generateXmlFiles' => new HookDefinition('void', []),
             'getAllEvents' => new HookDefinition('array', [
@@ -220,10 +220,10 @@ class MakeHook extends AbstractMaker
                 'calendars' => 'array',
                 'timeStart' => 'int',
                 'timeEnd' => 'int',
-                'module' => 'Contao\Module',
+                'module' => '\Contao\Module',
             ]),
             'getArticle' => new HookDefinition('void', [
-                'article' => 'Contao\ArticleModel',
+                'article' => '\Contao\ArticleModel',
             ]),
             'getArticles' => new HookDefinition('?string', [
                 'pageId' => 'int',
@@ -231,7 +231,7 @@ class MakeHook extends AbstractMaker
             ]),
             'getAttributesFromDca' => new HookDefinition('array', [
                 'attributes' => 'array',
-                'dc' => ['Contao\DataContainer', 'null'],
+                'dc' => ['\Contao\DataContainer', 'null'],
             ]),
             'getCombinedFile' => new HookDefinition('string', [
                 'content' => 'string',
@@ -240,22 +240,22 @@ class MakeHook extends AbstractMaker
                 'file' => 'array',
             ]),
             'getContentElement' => new HookDefinition('string', [
-                'contentModel' => 'Contao\ContentModel',
+                'contentModel' => '\Contao\ContentModel',
                 'buffer' => 'string',
-                'contentElement' => 'Contao\ContentElement',
+                'contentElement' => '\Contao\ContentElement',
             ]),
             'getCountries' => new HookDefinition('void', [
                 '&translatedCountries' => 'array',
                 'allCountries' => 'array',
             ]),
             'getForm' => new HookDefinition('string', [
-                'form' => 'Contao\FormModel',
+                'form' => '\Contao\FormModel',
                 'buffer' => 'string',
             ]),
             'getFrontendModule' => new HookDefinition('string', [
-                'moduleModel' => 'Contao\ModuleModel',
+                'moduleModel' => '\Contao\ModuleModel',
                 'buffer' => 'string',
-                'module' => 'Contao\Module',
+                'module' => '\Contao\Module',
             ]),
             'getImage' => new HookDefinition('?string', [
                 'originalPath' => 'string',
@@ -263,9 +263,9 @@ class MakeHook extends AbstractMaker
                 'height' => 'int',
                 'mode' => 'string',
                 'cacheName' => 'string',
-                'file' => 'Contao\File',
+                'file' => '\Contao\File',
                 'targetPath' => 'string',
-                'imageObject' => 'Contao\Image',
+                'imageObject' => '\Contao\Image',
             ]),
             'getLanguages' => new HookDefinition('void', [
                 '&compiledLanguages' => 'array',
@@ -277,9 +277,9 @@ class MakeHook extends AbstractMaker
                 'fragments' => 'array',
             ]),
             'getPageLayout' => new HookDefinition('void', [
-                'pageModel' => 'Contao\PageModel',
-                'layout' => 'Contao\LayoutModel',
-                'pageRegular' => 'Contao\PageRegular',
+                'pageModel' => '\Contao\PageModel',
+                'layout' => '\Contao\LayoutModel',
+                'pageRegular' => '\Contao\PageRegular',
             ]),
             'getPageStatusIcon' => new HookDefinition('string', [
                 'page' => 'object',

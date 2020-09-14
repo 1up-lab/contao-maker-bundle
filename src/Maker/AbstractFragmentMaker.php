@@ -54,7 +54,7 @@ abstract class AbstractFragmentMaker extends AbstractMaker
     {
         $requiredValidator = static function ($input) {
             if (null === $input || '' === $input) {
-                throw new RuntimeCommandException('This value cannot be blank.');
+                throw new RuntimeCommandException('This value cannot be blank');
             }
 
             return $input;
@@ -67,7 +67,7 @@ abstract class AbstractFragmentMaker extends AbstractMaker
         $question = new ConfirmationQuestion('Do you want to add an empty DCA palette?', true);
         $input->setArgument('addEmptyDcaPalette', $io->askQuestion($question));
 
-        $command->addArgument('category', InputArgument::OPTIONAL, 'Choose a category.');
+        $command->addArgument('category', InputArgument::OPTIONAL, 'Choose a category');
         $argument = $definition->getArgument('category');
 
         $categories = $this->getExistingCategories();
@@ -89,8 +89,8 @@ abstract class AbstractFragmentMaker extends AbstractMaker
         if ($input->getArgument('addTranslation')) {
             $command
                 ->addArgument('language', InputArgument::OPTIONAL, 'What language do you want the element name translate to? (e.g. <fg=yellow>de</> or <fg=yellow>en</>)')
-                ->addArgument('translatedName', InputArgument::OPTIONAL, 'Choose a translated name for this element.')
-                ->addArgument('translatedDescription', InputArgument::OPTIONAL, 'Choose a translated description for this element.')
+                ->addArgument('translatedName', InputArgument::OPTIONAL, 'Choose a translated name for this element')
+                ->addArgument('translatedDescription', InputArgument::OPTIONAL, 'Choose a translated description for this element')
             ;
 
             $argument = $definition->getArgument('language');
