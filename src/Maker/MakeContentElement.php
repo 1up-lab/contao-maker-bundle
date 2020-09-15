@@ -61,7 +61,8 @@ class MakeContentElement extends AbstractFragmentMaker
         $elementDetails = $generator->createClassNameDetails($name, 'Controller\\ContentElement\\');
 
         $className = Str::asClassName($name);
-        $elementName = Container::underscore($className);
+        $classNameWithoutSuffix = $this->getClassNameWithoutSuffix($className);
+        $elementName = Container::underscore($classNameWithoutSuffix);
 
         $this->classGenerator->generate([
             'source' => 'content-element/ContentElement.tpl.php',
@@ -75,7 +76,7 @@ class MakeContentElement extends AbstractFragmentMaker
 
         $this->templateGenerator->generate([
             'source' => 'content-element/content_element.tpl.html5',
-            'target' => $this->getTemplateName($className),
+            'target' => $this->getTemplateName($classNameWithoutSuffix),
         ]);
 
         if ($addEmptyDcaPalette) {

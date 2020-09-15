@@ -122,10 +122,6 @@ abstract class AbstractFragmentMaker extends AbstractMaker
 
     protected function getTemplateName(string $className): string
     {
-        if ('Controller' === substr($className, -10)) {
-            $className = substr($className, 0, -10);
-        }
-
         return sprintf('%s/templates/%s_%s.html5', $this->contaoDirectoryLocator->getConfigDirectory(), $this->getTemplatePrefix(), Container::underscore($className));
     }
 
@@ -134,5 +130,14 @@ abstract class AbstractFragmentMaker extends AbstractMaker
         $this->framework->initialize();
 
         return array_keys((array) $GLOBALS[$this->getGlobalsRegistryKey()]);
+    }
+
+    protected function getClassNameWithoutSuffix(string $className): string
+    {
+        if ('Controller' === substr($className, -10)) {
+            $className = substr($className, 0, -10);
+        }
+
+        return $className;
     }
 }
