@@ -10,8 +10,8 @@ use <?= $use ?>;
 <?php endforeach; ?>
 
 /**
-* @Hook("<?= $hook ?>")
-*/
+ * @Hook("<?= $hook ?>")
+ */
 class <?= $className . "\n" ?>
 {
     <?= $signature . "\n" ?>

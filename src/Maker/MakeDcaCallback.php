@@ -138,12 +138,10 @@ class MakeDcaCallback extends AbstractMaker
             return;
         }
 
-        $methodName = 'onCallback';
-
         /** @var CallbackDefinition $callback */
         $callback = $availableTargets[$target];
         $method = $callback->getMethodDefinition();
-        $signature = $method->getMethodSignature($methodName);
+        $signature = $method->getMethodSignature('__invoke');
         $uses = $method->getUses();
 
         $elementDetails = $generator->createClassNameDetails($name, 'EventListener\\');

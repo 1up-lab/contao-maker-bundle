@@ -80,11 +80,9 @@ class MakeHook extends AbstractMaker
             return;
         }
 
-        $methodName = sprintf('on%s', ucfirst($hook));
-
         /** @var MethodDefinition $definition */
         $definition = $availableHooks[$hook];
-        $signature = $definition->getMethodSignature($methodName);
+        $signature = $definition->getMethodSignature('__invoke');
         $uses = $definition->getUses();
 
         $elementDetails = $generator->createClassNameDetails($name, 'EventListener\\');
