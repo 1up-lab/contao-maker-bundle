@@ -20,6 +20,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Question\Question;
+use Symfony\Component\DependencyInjection\Container;
 
 class MakeContentElement extends AbstractFragmentMaker
 {
@@ -59,25 +60,29 @@ class MakeContentElement extends AbstractFragmentMaker
 
         $elementDetails = $generator->createClassNameDetails($name, 'Controller\\ContentElement\\');
 
+        $className = Str::asClassName($name);
+        $elementName = Container::underscore($className);
+
         $this->classGenerator->generate([
             'source' => 'content-element/ContentElement.tpl.php',
             'fqcn' => $elementDetails->getFullName(),
             'variables' => [
-                'class_name' => $elementDetails->getShortName(),
+                'className' => $className,
+                'elementName' => $elementName,
                 'category' => $category,
             ],
         ]);
 
         $this->templateGenerator->generate([
             'source' => 'content-element/content_element.tpl.html5',
-            'target' => $this->getTemplateName($elementDetails->getFullName()),
+            'target' => $this->getTemplateName($className),
         ]);
 
         if ($addEmptyDcaPalette) {
             $this->dcaGenerator->generate([
                 'domain' => 'tl_content',
                 'source' => 'content-element/tl_content.tpl.php',
-                'element' => Str::asLowerCamelCase($name),
+                'element' => $elementName,
                 'io' => $io,
             ]);
         }
@@ -93,7 +98,7 @@ class MakeContentElement extends AbstractFragmentMaker
                 'language' => $language,
                 'io' => $io,
                 'variables' => [
-                    'element' => Str::asLowerCamelCase($name),
+                    'element' => $elementName,
                     'translatedName' => $translatedName,
                     'translatedDescription' => $translatedDescription,
                 ],

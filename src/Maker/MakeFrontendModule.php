@@ -21,6 +21,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Question\Question;
+use Symfony\Component\DependencyInjection\Container;
 
 class MakeFrontendModule extends AbstractFragmentMaker
 {
@@ -60,26 +61,29 @@ class MakeFrontendModule extends AbstractFragmentMaker
 
         $elementDetails = $generator->createClassNameDetails($name, 'Controller\\FrontendModule\\');
 
+        $className = Str::asClassName($name);
+        $elementName = Container::underscore($className);
+
         $this->classGenerator->generate([
             'source' => 'frontend-module/FrontendModule.tpl.php',
             'fqcn' => $elementDetails->getFullName(),
             'variables' => [
-                'class_name' => $elementDetails->getShortName(),
-                'namespace' => $elementDetails->getRelativeNameWithoutSuffix(),
+                'className' => $elementDetails->getShortName(),
+                'elementName' => $elementName,
                 'category' => $category,
             ],
         ]);
 
         $this->templateGenerator->generate([
             'source' => 'frontend-module/frontend_module.tpl.html5',
-            'target' => $this->getTemplateName($elementDetails->getFullName()),
+            'target' => $this->getTemplateName($className),
         ]);
 
         if ($addEmptyDcaPalette) {
             $this->dcaGenerator->generate([
                 'domain' => 'tl_module',
                 'source' => 'frontend-module/tl_module.tpl.php',
-                'element' => Str::asLowerCamelCase($name),
+                'element' => $elementName,
                 'io' => $io,
             ]);
         }
@@ -95,7 +99,7 @@ class MakeFrontendModule extends AbstractFragmentMaker
                 'language' => $language,
                 'io' => $io,
                 'variables' => [
-                    'element' => Str::asLowerCamelCase($name),
+                    'element' => $elementName,
                     'translatedName' => $translatedName,
                     'translatedDescription' => $translatedDescription,
                 ],

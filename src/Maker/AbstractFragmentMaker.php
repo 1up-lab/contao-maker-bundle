@@ -118,12 +118,6 @@ abstract class AbstractFragmentMaker extends AbstractMaker
 
     protected function getTemplateName(string $className): string
     {
-        $className = ltrim(strrchr($className, '\\'), '\\');
-
-        if ('Controller' === substr($className, -10)) {
-            $className = substr($className, 0, -10);
-        }
-
         return sprintf('%s_%s.html5', $this->getTemplatePrefix(), Container::underscore($className));
     }
 
