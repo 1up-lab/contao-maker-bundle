@@ -89,13 +89,13 @@ class MakeContentElement extends AbstractFragmentMaker
         }
 
         if ($addTranslations) {
-            $language = $input->getArgument('language');
+            $language = 'en';
             $translatedName = $input->getArgument('translatedName');
             $translatedDescription = $input->getArgument('translatedDescription');
 
             $this->languageFileGenerator->generate([
                 'domain' => 'default',
-                'source' => 'content-element/default.tpl.xlf',
+                'source' => 'content-element/english.tpl.xlf',
                 'language' => $language,
                 'io' => $io,
                 'variables' => [
@@ -104,6 +104,33 @@ class MakeContentElement extends AbstractFragmentMaker
                     'translatedDescription' => $translatedDescription,
                 ],
             ]);
+
+            $i = 0;
+            while (true) {
+                $hasNext = $input->hasArgument('addAnotherTranslation_'.$i);
+
+                if (!$hasNext || false === $input->getArgument('addAnotherTranslation_'.$i)) {
+                    break;
+                }
+
+                $language = $input->getArgument('language_'.$i);
+                $translatedName = $input->getArgument('translatedName_'.$i);
+                $translatedDescription = $input->getArgument('translatedDescription_'.$i);
+
+                $this->languageFileGenerator->generate([
+                    'domain' => 'default',
+                    'source' => 'content-element/default.tpl.xlf',
+                    'language' => $language,
+                    'io' => $io,
+                    'variables' => [
+                        'element' => $elementName,
+                        'translatedName' => $translatedName,
+                        'translatedDescription' => $translatedDescription,
+                    ],
+                ]);
+
+                ++$i;
+            }
         }
 
         $generator->writeChanges();

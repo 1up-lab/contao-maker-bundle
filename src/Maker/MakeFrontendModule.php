@@ -34,7 +34,8 @@ class MakeFrontendModule extends AbstractFragmentMaker
     {
         $command
             ->setDescription('Creates an empty frontend module')
-            ->addArgument('module', InputArgument::REQUIRED, sprintf('Choose a class name for your frontend module'));
+            ->addArgument('module', InputArgument::REQUIRED, sprintf('Choose a class name for your frontend module'))
+        ;
 
         $inputConfig->setArgumentAsNonInteractive('module');
     }
@@ -89,13 +90,13 @@ class MakeFrontendModule extends AbstractFragmentMaker
         }
 
         if ($addTranslations) {
-            $language = $input->getArgument('language');
+            $language = 'en';
             $translatedName = $input->getArgument('translatedName');
             $translatedDescription = $input->getArgument('translatedDescription');
 
             $this->languageFileGenerator->generate([
                 'domain' => 'default',
-                'source' => 'frontend-module/default.tpl.xlf',
+                'source' => 'frontend-module/english.tpl.xlf',
                 'language' => $language,
                 'io' => $io,
                 'variables' => [
@@ -104,6 +105,33 @@ class MakeFrontendModule extends AbstractFragmentMaker
                     'translatedDescription' => $translatedDescription,
                 ],
             ]);
+
+            $i = 0;
+            while (true) {
+                $hasNext = $input->hasArgument('addAnotherTranslation_'.$i);
+
+                if (!$hasNext || false === $input->getArgument('addAnotherTranslation_'.$i)) {
+                    break;
+                }
+
+                $language = $input->getArgument('language_'.$i);
+                $translatedName = $input->getArgument('translatedName_'.$i);
+                $translatedDescription = $input->getArgument('translatedDescription_'.$i);
+
+                $this->languageFileGenerator->generate([
+                    'domain' => 'default',
+                    'source' => 'frontend-module/default.tpl.xlf',
+                    'language' => $language,
+                    'io' => $io,
+                    'variables' => [
+                        'element' => $elementName,
+                        'translatedName' => $translatedName,
+                        'translatedDescription' => $translatedDescription,
+                    ],
+                ]);
+
+                ++$i;
+            }
         }
 
         $generator->writeChanges();

@@ -92,14 +92,9 @@ abstract class AbstractFragmentMaker extends AbstractMaker
 
         if ($input->getArgument('addTranslation')) {
             $command
-                ->addArgument('language', InputArgument::OPTIONAL, 'What language do you want the element name translate to? (e.g. <fg=yellow>de</> or <fg=yellow>en</>)')
-                ->addArgument('translatedName', InputArgument::OPTIONAL, 'Choose a translated name for this element')
-                ->addArgument('translatedDescription', InputArgument::OPTIONAL, 'Choose a translated description for this element')
+                ->addArgument('translatedName', InputArgument::OPTIONAL, 'Choose an english name for this element')
+                ->addArgument('translatedDescription', InputArgument::OPTIONAL, 'Choose an english description for this element')// ->addArgument('languages', InputArgument::OPTIONAL, 'What languages do you want the element name translate to? (e.g. <fg=yellow>en, fr</>)')
             ;
-
-            $argument = $definition->getArgument('language');
-            $question = new Question($argument->getDescription(), 'en');
-            $input->setArgument('language', $io->askQuestion($question));
 
             foreach (['translatedName', 'translatedDescription'] as $field) {
                 $argument = $definition->getArgument($field);
@@ -108,6 +103,38 @@ abstract class AbstractFragmentMaker extends AbstractMaker
                 $question->setValidator($requiredValidator);
 
                 $input->setArgument($field, $io->askQuestion($question));
+            }
+
+            $i = 0;
+            while (true) {
+                $command->addArgument('addAnotherTranslation_'.$i, InputArgument::OPTIONAL);
+                $question = new ConfirmationQuestion('Do you want to add another translation?', false);
+                $input->setArgument('addAnotherTranslation_'.$i, $io->askQuestion($question));
+
+                if (!$input->getArgument('addAnotherTranslation_'.$i)) {
+                    break;
+                }
+
+                $command
+                    ->addArgument('language_'.$i, InputArgument::OPTIONAL, 'What language do you want the element name translate to? (e.g. <fg=yellow>de</>)')
+                    ->addArgument('translatedName_'.$i, InputArgument::OPTIONAL, 'Choose a translated name for this element')
+                    ->addArgument('translatedDescription_'.$i, InputArgument::OPTIONAL, 'Choose a translated description for this element')
+                ;
+
+                $argument = $definition->getArgument('language_'.$i);
+                $question = new Question($argument->getDescription());
+                $input->setArgument('language_'.$i, $io->askQuestion($question));
+
+                foreach (['translatedName_'.$i, 'translatedDescription_'.$i] as $field) {
+                    $argument = $definition->getArgument($field);
+
+                    $question = new Question($argument->getDescription());
+                    $question->setValidator($requiredValidator);
+
+                    $input->setArgument($field, $io->askQuestion($question));
+                }
+
+                ++$i;
             }
         }
     }
