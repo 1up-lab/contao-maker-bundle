@@ -16,6 +16,7 @@ use Contao\CoreBundle\Config\ResourceFinder;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\MakerBundle\Generator\ClassGenerator;
 use Contao\MakerBundle\Util\MethodDefinition;
+use PhpParser\Builder\Method;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\DependencyBuilder;
 use Symfony\Bundle\MakerBundle\Generator;
@@ -49,8 +50,7 @@ class MakeDcaCallback extends AbstractMaker
     {
         $command
             ->setDescription('Creates a dca callback')
-            ->addArgument('className', InputArgument::OPTIONAL, sprintf('Choose a class name for your callback'))
-        ;
+            ->addArgument('className', InputArgument::OPTIONAL, sprintf('Choose a class name for your callback'));
     }
 
     public function interact(InputInterface $input, ConsoleStyle $io, Command $command): void
@@ -151,8 +151,105 @@ class MakeDcaCallback extends AbstractMaker
                 'dataContainer' => '\Contao\DataContainer',
             ]),
             'config.onsubmit' => new MethodDefinition('void', [
-                '',
+                // Since there is multiple parameters for multiple calls
+                // we can't safely assume the correct parameter names and types
             ]),
+            'config.ondelete' => new MethodDefinition('void', [
+                'dataContainer' => '\Contao\DataContainer',
+                'id' => 'int',
+            ]),
+            'config.oncut' => new MethodDefinition('void', [
+                'dataContainer' => '\Contao\DataContainer',
+            ]),
+            'config.oncopy' => new MethodDefinition('void', [
+                'id' => 'int',
+                'dataContainer' => '\Contao\DataContainer',
+            ]),
+            'config.oncreate_version' => new MethodDefinition('void', [
+                'table' => 'string',
+                'pid' => 'int',
+                'versionNumber' => 'int',
+                'recordData' => 'array',
+            ]),
+            'config.onrestore_version' => new MethodDefinition('void', [
+                'table' => 'string',
+                'pid' => 'int',
+                'versionNumber' => 'int',
+                'recordData' => 'array',
+            ]),
+            'config.onundo' => new MethodDefinition('void', [
+                'table' => 'string',
+                'recordData' => 'array',
+                'dataContainer' => '\Contao\DataContainer',
+            ]),
+            'config.oninvalidate_cache_tags' => new MethodDefinition('array', [
+                'dataContainer' => '\Contao\DataContainer',
+                'tags' => 'array',
+            ]),
+            'config.onshow' => new MethodDefinition('array', [
+                'modalData' => 'array',
+                'recordData' => 'array',
+                'dataContainer' => '\Contao\DataContainer',
+            ]),
+            'list.sorting.paste_button' => new MethodDefinition('string', [
+                'dataContainer' => '\Contao\DataContainer',
+                'recordData' => 'array',
+                'table' => 'string',
+                'isCircularReference' => 'bool',
+                'clipboardData' => 'array',
+                'children' => 'array',
+                'previousLabel' => 'string',
+                'nextLabel' => 'string',
+            ]),
+            'list.sorting.child_record' => new MethodDefinition('string', [
+                'recordData' => 'array',
+            ]),
+            'list.sorting.header' => new MethodDefinition('array', [
+                'currentHeaderLabels' => 'array',
+                'dataContainer' => '\Contao\DataContainer',
+            ]),
+            'list.sorting.panel_callback.subpanel' => new MethodDefinition('string', [
+                'dataContainer' => '\Contao\DataContainer',
+            ]),
+            'list.label.group' => new MethodDefinition('string', [
+                'group' => 'string',
+                'mode' => 'string',
+                'field' => 'string',
+                'recordData' => 'array',
+                'dataContainer' => '\Contao\DataContainer',
+            ]),
+            'list.label.label' => new MethodDefinition('array', [
+                'recordData' => 'array',
+                'currentLabel' => 'string',
+                'dataContainer' => '\Contao\DataContainer',
+
+                // Since there is multiple parameters for multiple calls
+                // we can't safely assume the following correct parameter names and types
+            ]),
+            'list.global_operations.operation.button' => new MethodDefinition('string', [
+                'buttonHref' => '?string',
+                'label' => 'string',
+                'title' => 'string',
+                'className' => 'string',
+                'htmlAttributes' => 'string',
+                'table' => 'string',
+                'rootRecordIds' => 'array',
+            ]),
+            'list.operations.operation.button' => new MethodDefinition('string', [
+                'recordData' => 'array',
+                'buttonHref' => '?string',
+                'label' => 'string',
+                'title' => 'string',
+                'icon' => '?string',
+                'htmlAttributes' => 'string',
+                'table' => 'string',
+                'rootRecordIds' => 'array',
+                'childRecordIds' => 'array',
+                'isCircularReference' => 'bool',
+                'previousLabel' => 'string',
+                'nextLabel' => 'string',
+                'dataContainer' => '\Contao\DataContainer',
+            ])
         ];
     }
 }
