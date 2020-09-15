@@ -82,6 +82,7 @@ class MakeHook extends AbstractMaker
         /** @var MethodDefinition $definition */
         $definition = $availableHooks[$hook];
         $signature = $definition->getMethodSignature($methodName);
+        $uses = $definition->getUses();
 
         $elementDetails = $generator->createClassNameDetails($name, 'EventListener\\');
 
@@ -89,9 +90,10 @@ class MakeHook extends AbstractMaker
             'source' => 'hook/Hook.tpl.php',
             'fqcn' => $elementDetails->getFullName(),
             'variables' => [
-                'class_name' => $elementDetails->getShortName(),
+                'className' => $elementDetails->getShortName(),
                 'hook' => $hook,
                 'signature' => $signature,
+                'uses' => $uses,
             ],
         ]);
 
@@ -104,8 +106,8 @@ class MakeHook extends AbstractMaker
     {
         return [
             'activateAccount' => new MethodDefinition('void', [
-                'member' => '\Contao\MemberModel',
-                'module' => '\Contao\Module',
+                'member' => 'Contao\MemberModel',
+                'module' => 'Contao\Module',
             ]),
             'activateRecipient' => new MethodDefinition('void', [
                 'mail' => 'string',
@@ -115,12 +117,12 @@ class MakeHook extends AbstractMaker
             'addComment' => new MethodDefinition('void', [
                 'commentId' => 'int',
                 'commentData' => 'array',
-                'comments' => '\Contao\Comments',
+                'comments' => 'Contao\Comments',
             ]),
             'addCustomRegexp' => new MethodDefinition('bool', [
                 'regexp' => 'string',
                 'input' => '',
-                'widget' => '\Contao\Widget',
+                'widget' => 'Contao\Widget',
             ]),
             'addLogEntry' => new MethodDefinition('void', [
                 'message' => 'string',
@@ -130,12 +132,12 @@ class MakeHook extends AbstractMaker
             'checkCredentials' => new MethodDefinition('bool', [
                 'username' => 'string',
                 'credentials' => 'string',
-                'user' => '\Contao\User',
+                'user' => 'Contao\User',
             ]),
             'closeAccount' => new MethodDefinition('void', [
                 'userId' => 'int',
                 'mode' => 'string',
-                'module' => '\Contao\Module',
+                'module' => 'Contao\Module',
             ]),
             'colorizeLogEntries' => new MethodDefinition('string', [
                 'row' => 'array',
@@ -143,12 +145,12 @@ class MakeHook extends AbstractMaker
             ]),
             'compareThemeFiles' => new MethodDefinition('string', [
                 'xml' => '\DOMDocument',
-                'zip' => '\Contao\ZipReader',
+                'zip' => 'Contao\ZipReader',
             ]),
             'compileArticle' => new MethodDefinition('void', [
-                'template' => '\Contao\FrontendTemplate',
+                'template' => 'Contao\FrontendTemplate',
                 'data' => 'array',
-                'module' => '\Contao\Module',
+                'module' => 'Contao\Module',
             ]),
             'compileDefinition' => new MethodDefinition('string', [
                 'row' => 'array',
@@ -159,7 +161,7 @@ class MakeHook extends AbstractMaker
             'compileFormFields' => new MethodDefinition('array', [
                 'fields' => 'array',
                 'formId' => 'string',
-                'form' => '\Contao\Form',
+                'form' => 'Contao\Form',
             ]),
             'createDefinition' => new MethodDefinition('?array', [
                 'key' => 'string',
@@ -170,39 +172,39 @@ class MakeHook extends AbstractMaker
             'createNewUser' => new MethodDefinition('void', [
                 'userId' => 'int',
                 'userData' => 'array',
-                'module' => '\Contao\Module',
+                'module' => 'Contao\Module',
             ]),
             'customizeSearch' => new MethodDefinition('void', [
                 '&pageIds' => 'array',
                 'keywords' => 'string',
                 'queryType' => 'string',
                 'fuzzy' => 'bool',
-                'module' => '\Contao\Module',
+                'module' => 'Contao\Module',
             ]),
             'executePostActions' => new MethodDefinition('void', [
                 'action' => 'string',
-                'dc' => '\Contao\DataContainer',
+                'dc' => 'Contao\DataContainer',
             ]),
             'executePreActions' => new MethodDefinition('void', [
                 'action' => 'string',
             ]),
             'executeResize' => new MethodDefinition('?string', [
-                'image' => '\Contao\Image',
+                'image' => 'Contao\Image',
             ]),
             'exportTheme' => new MethodDefinition('void', [
                 'xml' => '\DomDocument',
-                'zipArchive' => '\Contao\ZipWriter',
+                'zipArchive' => 'Contao\ZipWriter',
                 'themeId' => 'int',
             ]),
             'extractThemeFiles' => new MethodDefinition('void', [
                 'xml' => '\DomDocument',
-                'zipArchive' => '\Contao\ZipReader',
+                'zipArchive' => 'Contao\ZipReader',
                 'themeId' => 'int',
                 'mapper' => 'array',
             ]),
             'generateBreadcrumb' => new MethodDefinition('array', [
                 'items' => 'array',
-                'module' => '\Contao\Module',
+                'module' => 'Contao\Module',
             ]),
             'generateFrontendUrl' => new MethodDefinition('string', [
                 'page' => 'array',
@@ -210,9 +212,9 @@ class MakeHook extends AbstractMaker
                 'url' => 'string',
             ]),
             'generatePage' => new MethodDefinition('void', [
-                'pageModel' => '\Contao\PageModel',
-                'layout' => '\Contao\LayoutModel',
-                'pageRegular' => '\Contao\PageRegular',
+                'pageModel' => 'Contao\PageModel',
+                'layout' => 'Contao\LayoutModel',
+                'pageRegular' => 'Contao\PageRegular',
             ]),
             'generateXmlFiles' => new MethodDefinition('void', []),
             'getAllEvents' => new MethodDefinition('array', [
@@ -220,10 +222,10 @@ class MakeHook extends AbstractMaker
                 'calendars' => 'array',
                 'timeStart' => 'int',
                 'timeEnd' => 'int',
-                'module' => '\Contao\Module',
+                'module' => 'Contao\Module',
             ]),
             'getArticle' => new MethodDefinition('void', [
-                'article' => '\Contao\ArticleModel',
+                'article' => 'Contao\ArticleModel',
             ]),
             'getArticles' => new MethodDefinition('?string', [
                 'pageId' => 'int',
@@ -231,7 +233,7 @@ class MakeHook extends AbstractMaker
             ]),
             'getAttributesFromDca' => new MethodDefinition('array', [
                 'attributes' => 'array',
-                'dc' => ['\Contao\DataContainer', 'null'],
+                'dc' => ['Contao\DataContainer', 'null'],
             ]),
             'getCombinedFile' => new MethodDefinition('string', [
                 'content' => 'string',
@@ -240,22 +242,22 @@ class MakeHook extends AbstractMaker
                 'file' => 'array',
             ]),
             'getContentElement' => new MethodDefinition('string', [
-                'contentModel' => '\Contao\ContentModel',
+                'contentModel' => 'Contao\ContentModel',
                 'buffer' => 'string',
-                'contentElement' => '\Contao\ContentElement',
+                'contentElement' => 'Contao\ContentElement',
             ]),
             'getCountries' => new MethodDefinition('void', [
                 '&translatedCountries' => 'array',
                 'allCountries' => 'array',
             ]),
             'getForm' => new MethodDefinition('string', [
-                'form' => '\Contao\FormModel',
+                'form' => 'Contao\FormModel',
                 'buffer' => 'string',
             ]),
             'getFrontendModule' => new MethodDefinition('string', [
-                'moduleModel' => '\Contao\ModuleModel',
+                'moduleModel' => 'Contao\ModuleModel',
                 'buffer' => 'string',
-                'module' => '\Contao\Module',
+                'module' => 'Contao\Module',
             ]),
             'getImage' => new MethodDefinition('?string', [
                 'originalPath' => 'string',
@@ -263,9 +265,9 @@ class MakeHook extends AbstractMaker
                 'height' => 'int',
                 'mode' => 'string',
                 'cacheName' => 'string',
-                'file' => '\Contao\File',
+                'file' => 'Contao\File',
                 'targetPath' => 'string',
-                'imageObject' => '\Contao\Image',
+                'imageObject' => 'Contao\Image',
             ]),
             'getLanguages' => new MethodDefinition('void', [
                 '&compiledLanguages' => 'array',
@@ -277,9 +279,9 @@ class MakeHook extends AbstractMaker
                 'fragments' => 'array',
             ]),
             'getPageLayout' => new MethodDefinition('void', [
-                'pageModel' => '\Contao\PageModel',
-                'layout' => '\Contao\LayoutModel',
-                'pageRegular' => '\Contao\PageRegular',
+                'pageModel' => 'Contao\PageModel',
+                'layout' => 'Contao\LayoutModel',
+                'pageRegular' => 'Contao\PageRegular',
             ]),
             'getPageStatusIcon' => new MethodDefinition('string', [
                 'page' => 'object',

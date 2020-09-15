@@ -55,7 +55,7 @@ class HookDefinitionTest extends TestCase
     {
         return [
             [
-                'public function __invoke(array $events, array $calendars, int $timeStart, int $timeEnd, Contao\Module $module): array',
+                'public function __invoke(array $events, array $calendars, int $timeStart, int $timeEnd, Module $module): array',
                 'array',
                 [
                     'events' => 'array',
