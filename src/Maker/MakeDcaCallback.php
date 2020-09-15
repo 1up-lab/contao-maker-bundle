@@ -73,6 +73,9 @@ class MakeDcaCallback extends AbstractMaker
 
         $tables = $this->getTables();
 
+        $io->writeln(' <fg=green>Suggested Tables:</>');
+        $io->listing($tables);
+
         $question = new Question($argument->getDescription());
         $question->setAutocompleterValues($tables);
 
@@ -83,6 +86,9 @@ class MakeDcaCallback extends AbstractMaker
         $argument = $definition->getArgument('target');
 
         $targets = $this->getTargets();
+
+        $io->writeln(' <fg=green>Suggested Targets:</>');
+        $io->listing(array_keys($targets));
 
         $question = new Question($argument->getDescription());
         $question->setAutocompleterValues(array_keys($targets));

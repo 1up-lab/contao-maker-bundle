@@ -38,6 +38,10 @@ class MethodDefinition
     public function getUses(): array
     {
         $objectTypeHints = array_filter($this->parameters, static function ($type) {
+            if (null === $type) {
+                return false;
+            }
+
             return class_exists($type, true);
         });
 
