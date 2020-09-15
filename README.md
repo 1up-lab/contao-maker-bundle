@@ -20,10 +20,11 @@ This bundle provides several commands under the make: namespace.
 List them all executing this command:
 
 ```
-⇢ symfony php bin/console list make:contao
+⇢ php bin/console list make:contao
   [...]
 
   make:contao:content-element  Creates an empty content element
+  make:contao:dca-callback     Creates a dca callback
   make:contao:frontend-module  Creates an empty frontend module
   make:contao:hook             Creates a hook
 ```
