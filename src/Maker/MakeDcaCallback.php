@@ -14,11 +14,9 @@ namespace Contao\MakerBundle\Maker;
 
 use Contao\CoreBundle\Config\ResourceFinder;
 use Contao\CoreBundle\Framework\ContaoFramework;
-use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\MakerBundle\Generator\ClassGenerator;
 use Contao\MakerBundle\Util\CallbackDefinition;
 use Contao\MakerBundle\Util\MethodDefinition;
-use PhpParser\Builder\Method;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\DependencyBuilder;
 use Symfony\Bundle\MakerBundle\Exception\RuntimeCommandException;
@@ -53,7 +51,8 @@ class MakeDcaCallback extends AbstractMaker
     {
         $command
             ->setDescription('Creates a dca callback')
-            ->addArgument('className', InputArgument::REQUIRED, sprintf('Choose a class name for your callback'));
+            ->addArgument('className', InputArgument::REQUIRED, sprintf('Choose a class name for your callback'))
+        ;
     }
 
     public function interact(InputInterface $input, ConsoleStyle $io, Command $command): void
@@ -98,7 +97,7 @@ class MakeDcaCallback extends AbstractMaker
 
         $callbackDependencies = $callback->getDependencies();
 
-        if (count($callbackDependencies) > 0) {
+        if (\count($callbackDependencies) > 0) {
             foreach ($callbackDependencies as $callbackDependency) {
                 $command
                     ->addArgument($callbackDependency, InputArgument::REQUIRED, sprintf('Please choose a value for "%s"', $callbackDependency))
@@ -143,7 +142,7 @@ class MakeDcaCallback extends AbstractMaker
         $elementDetails = $generator->createClassNameDetails($name, 'EventListener\\');
 
         foreach ($callback->getDependencies() as $dependencyName) {
-            $target = str_replace('{' . $dependencyName . '}', $input->getArgument($dependencyName), $target);
+            $target = str_replace('{'.$dependencyName.'}', $input->getArgument($dependencyName), $target);
         }
 
         $this->classGenerator->generate([
