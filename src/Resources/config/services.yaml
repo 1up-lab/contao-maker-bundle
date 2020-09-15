@@ -33,4 +33,4 @@ services:
         class: Contao\MakerBundle\Filesystem\ContaoDirectoryLocator
         arguments:
             - "@filesystem"
-            - "%contao.resources_paths%"
+            - "%kernel.project_dir%"
