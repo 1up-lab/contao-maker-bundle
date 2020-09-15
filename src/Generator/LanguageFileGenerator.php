@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Contao\MakerBundle\Generator;
 
+use Contao\MakerBundle\Filesystem\ContaoDirectoryLocator;
 use Contao\MakerBundle\Util\XliffMerger;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\FileManager;
@@ -23,21 +24,18 @@ class LanguageFileGenerator implements GeneratorInterface
     private $fileManager;
     private $filesystem;
     private $xliffMerger;
-    private $resourcesPaths;
-    private $projectDir;
+    private $directoryLocator;
 
     public function __construct(
         FileManager $fileManager,
         Filesystem $filesystem,
         XliffMerger $xliffMerger,
-        array $resourcesPaths,
-        string $projectDir)
-    {
+        ContaoDirectoryLocator $directoryLocator
+    ) {
         $this->fileManager = $fileManager;
         $this->filesystem = $filesystem;
         $this->xliffMerger = $xliffMerger;
-        $this->resourcesPaths = $resourcesPaths;
-        $this->projectDir = $projectDir;
+        $this->directoryLocator = $directoryLocator;
     }
 
     public function generate(array $options): string
@@ -48,7 +46,7 @@ class LanguageFileGenerator implements GeneratorInterface
         $options = $resolver->resolve($options);
 
         $source = $this->getSourcePath($options['source']);
-        $target = sprintf('%s/languages/%s/%s.xlf', $this->getConfigRoot(), $options['language'], ltrim($options['domain'], '/'));
+        $target = sprintf('%s/languages/%s/%s.xlf', $this->directoryLocator->getConfigDirectory(), $options['language'], ltrim($options['domain'], '/'));
 
         $fileExists = $this->filesystem->exists($target);
 
@@ -100,11 +98,6 @@ class LanguageFileGenerator implements GeneratorInterface
             $action,
             $this->fileManager->relativizePath($target)
         ));
-    }
-
-    private function getConfigRoot(): string
-    {
-        return $this->resourcesPaths[array_key_last($this->resourcesPaths)];
     }
 
     private function getSourcePath(string $path)

@@ -16,8 +16,7 @@ services:
             - "@filesystem"
             - "@maker.file_manager"
             - "@maker.generator"
-            - "%contao.resources_paths%"
-            - "%kernel.project_dir%"
+            - "@contao_maker.contao_directory_locator"
 
     contao_maker.generator.language_file:
         class: Contao\MakerBundle\Generator\LanguageFileGenerator
@@ -25,8 +24,13 @@ services:
             - "@maker.file_manager"
             - "@filesystem"
             - "@contao_maker.xliff_merger"
-            - "%contao.resources_paths%"
-            - "%kernel.project_dir%"
+            - "@contao_maker.contao_directory_locator"
 
     contao_maker.xliff_merger:
         class: Contao\MakerBundle\Util\XliffMerger
+
+    contao_maker.contao_directory_locator:
+        class: Contao\MakerBundle\Filesystem\ContaoDirectoryLocator
+        arguments:
+            - "@filesystem"
+            - "%contao.resources_paths%"

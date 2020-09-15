@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Contao\MakerBundle\Generator;
 
+use Contao\MakerBundle\Filesystem\ContaoDirectoryLocator;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\FileManager;
 use Symfony\Bundle\MakerBundle\Generator;
@@ -23,21 +24,18 @@ class DcaGenerator implements GeneratorInterface
     private $filesystem;
     private $fileManager;
     private $generator;
-    private $resourcesPaths;
-    private $projectDir;
+    private $directoryLocator;
 
     public function __construct(
         Filesystem $filesystem,
         FileManager $fileManager,
         Generator $generator,
-        array $resourcesPaths,
-        string $projectDir)
-    {
+        ContaoDirectoryLocator $directoryLocator
+    ) {
         $this->filesystem = $filesystem;
         $this->fileManager = $fileManager;
         $this->generator = $generator;
-        $this->resourcesPaths = $resourcesPaths;
-        $this->projectDir = $projectDir;
+        $this->directoryLocator = $directoryLocator;
     }
 
     public function generate(array $options): string
@@ -48,7 +46,7 @@ class DcaGenerator implements GeneratorInterface
         $options = $resolver->resolve($options);
 
         $source = $this->getSourcePath($options['source']);
-        $target = sprintf('%s/dca/%s.php', $this->getConfigRoot(), ltrim($options['domain'], '/'));
+        $target = sprintf('%s/dca/%s.php', $this->directoryLocator->getConfigDirectory(), ltrim($options['domain'], '/'));
 
         $fileExists = $this->filesystem->exists($target);
 
@@ -97,11 +95,6 @@ class DcaGenerator implements GeneratorInterface
             $action,
             $this->fileManager->relativizePath($target)
         ));
-    }
-
-    private function getConfigRoot(): string
-    {
-        return $this->resourcesPaths[array_key_last($this->resourcesPaths)];
     }
 
     private function getSourcePath(string $path)
