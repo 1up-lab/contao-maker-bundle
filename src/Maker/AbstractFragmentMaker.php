@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Contao\MakerBundle\Maker;
 
 use Contao\CoreBundle\Framework\ContaoFramework;
+use Contao\MakerBundle\Filesystem\ContaoDirectoryLocator;
 use Contao\MakerBundle\Generator\ClassGenerator;
 use Contao\MakerBundle\Generator\DcaGenerator;
 use Contao\MakerBundle\Generator\LanguageFileGenerator;
@@ -35,19 +36,22 @@ abstract class AbstractFragmentMaker extends AbstractMaker
     protected $classGenerator;
     protected $dcaGenerator;
     protected $languageFileGenerator;
+    protected $contaoDirectoryLocator;
 
     public function __construct(
         ContaoFramework $framework,
         TemplateGenerator $templateGenerator,
         ClassGenerator $classGenerator,
         DcaGenerator $dcaGenerator,
-        LanguageFileGenerator $languageFileGenerator
+        LanguageFileGenerator $languageFileGenerator,
+        ContaoDirectoryLocator $contaoDirectoryLocator
     ) {
         $this->framework = $framework;
         $this->templateGenerator = $templateGenerator;
         $this->classGenerator = $classGenerator;
         $this->dcaGenerator = $dcaGenerator;
         $this->languageFileGenerator = $languageFileGenerator;
+        $this->contaoDirectoryLocator = $contaoDirectoryLocator;
     }
 
     public function interact(InputInterface $input, ConsoleStyle $io, Command $command): void
@@ -118,7 +122,11 @@ abstract class AbstractFragmentMaker extends AbstractMaker
 
     protected function getTemplateName(string $className): string
     {
-        return sprintf('%s_%s.html5', $this->getTemplatePrefix(), Container::underscore($className));
+        if ('Controller' === substr($className, -10)) {
+            $className = substr($className, 0, -10);
+        }
+
+        return sprintf('%s/templates/%s_%s.html5', $this->contaoDirectoryLocator->getConfigDirectory(), $this->getTemplatePrefix(), Container::underscore($className));
     }
 
     protected function getExistingCategories(): array

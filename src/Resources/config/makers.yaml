@@ -7,6 +7,7 @@ services:
             - "@contao_maker.generator.class"
             - "@contao_maker.generator.dca"
             - "@contao_maker.generator.language_file"
+            - "@contao_maker.contao_directory_locator"
         tags:
             - { name: maker.command }
 
@@ -18,6 +19,7 @@ services:
             - "@contao_maker.generator.class"
             - "@contao_maker.generator.dca"
             - "@contao_maker.generator.language_file"
+            - "@contao_maker.contao_directory_locator"
         tags:
             - { name: maker.command }
 

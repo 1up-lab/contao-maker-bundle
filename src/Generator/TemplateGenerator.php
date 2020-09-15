@@ -34,11 +34,13 @@ class TemplateGenerator implements GeneratorInterface
 
         $options = $resolver->resolve($options);
 
-        $this->generator->generateTemplate(
+        $this->generator->generateFile(
             $options['target'],
-            $this->getSourcePath($options['source']), $options['variables']);
+            $this->getSourcePath($options['source']),
+            $options['variables']
+        );
 
-        return $this->fileManager->getPathForTemplate($options['target']);
+        return $options['target'];
     }
 
     protected function configureOptions(OptionsResolver $resolver): void
