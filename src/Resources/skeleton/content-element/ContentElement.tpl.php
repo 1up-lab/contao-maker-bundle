@@ -12,11 +12,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @ContentElement("<?= $elementName; ?>", category="<?= $category; ?>")
+ * @ContentElement("<?= $elementName ?>", category="<?= $category ?>")
  */
-class <?= $className; ?> extends AbstractContentElementController
+class <?= $className ?> extends AbstractContentElementController
 {
-    protected function getResponse(Template $template, ContentModel $model, Request $request): Response
+    protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
     {
         return $template->getResponse();
     }

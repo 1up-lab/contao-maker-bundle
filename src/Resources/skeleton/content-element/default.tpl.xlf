@@ -2,10 +2,10 @@
 <xliff version="1.1">
     <file>
         <body>
-            <trans-unit id="CTE.<?= $element; ?>.0" resName="CTE.<?= $element; ?>.0">
+            <trans-unit id="CTE.<?= $element; ?>.0">
                 <target><?= $translatedName; ?></target>
             </trans-unit>
-            <trans-unit id="CTE.<?= $element; ?>.1" resName="CTE.<?= $element; ?>.1">
+            <trans-unit id="CTE.<?= $element; ?>.1">
                 <target><?= $translatedDescription; ?></target>
             </trans-unit>
         </body>

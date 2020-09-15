@@ -12,9 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
-* @FrontendModule("<?= $elementName; ?>", category="<?= $category; ?>")
+* @FrontendModule("<?= $elementName ?>", category="<?= $category ?>")
 */
-class <?= $className; ?> extends AbstractFrontendModuleController
+class <?= $className ?> extends AbstractFrontendModuleController
 {
     protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
     {

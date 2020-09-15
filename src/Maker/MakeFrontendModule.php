@@ -34,15 +34,14 @@ class MakeFrontendModule extends AbstractFragmentMaker
     {
         $command
             ->setDescription('Creates an empty frontend module')
-            ->addArgument('module', InputArgument::REQUIRED, sprintf('Choose a class name for your frontend module'))
-        ;
+            ->addArgument('module', InputArgument::REQUIRED, sprintf('Choose a class name for your frontend module'));
 
         $inputConfig->setArgumentAsNonInteractive('module');
     }
 
     public function interact(InputInterface $input, ConsoleStyle $io, Command $command): void
     {
-        $defaultName = Str::asClassName(Str::getRandomTerm());
+        $defaultName = Str::asClassName(Str::getRandomTerm().'Controller');
 
         $argument = $command->getDefinition()->getArgument('module');
         $question = new Question($argument->getDescription(), $defaultName);
