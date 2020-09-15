@@ -33,7 +33,7 @@ class MakeContentElement extends AbstractFragmentMaker
     {
         $command
             ->setDescription('Creates an empty content element')
-            ->addArgument('element', InputArgument::OPTIONAL, sprintf('Choose a class name for your content element'))
+            ->addArgument('element', InputArgument::REQUIRED, sprintf('Choose a class name for your content element'))
         ;
 
         $inputConfig->setArgumentAsNonInteractive('element');

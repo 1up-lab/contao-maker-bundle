@@ -9,7 +9,7 @@ use Contao\CoreBundle\ServiceAnnotation\Callback;
 /**
  * @Callback(table="<?= $table; ?>", target="<?= $target; ?>")
  */
-class <?= $class_name; ?>
+class <?= $className; ?>
 
 {
     <?= $signature; ?>

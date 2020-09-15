@@ -14,11 +14,14 @@ namespace Contao\MakerBundle\Maker;
 
 use Contao\CoreBundle\Config\ResourceFinder;
 use Contao\CoreBundle\Framework\ContaoFramework;
+use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\MakerBundle\Generator\ClassGenerator;
+use Contao\MakerBundle\Util\CallbackDefinition;
 use Contao\MakerBundle\Util\MethodDefinition;
 use PhpParser\Builder\Method;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\DependencyBuilder;
+use Symfony\Bundle\MakerBundle\Exception\RuntimeCommandException;
 use Symfony\Bundle\MakerBundle\Generator;
 use Symfony\Bundle\MakerBundle\InputConfiguration;
 use Symfony\Bundle\MakerBundle\Maker\AbstractMaker;
@@ -50,15 +53,23 @@ class MakeDcaCallback extends AbstractMaker
     {
         $command
             ->setDescription('Creates a dca callback')
-            ->addArgument('className', InputArgument::OPTIONAL, sprintf('Choose a class name for your callback'));
+            ->addArgument('className', InputArgument::REQUIRED, sprintf('Choose a class name for your callback'));
     }
 
     public function interact(InputInterface $input, ConsoleStyle $io, Command $command): void
     {
+        $requiredValidator = static function ($input) {
+            if (null === $input || '' === $input) {
+                throw new RuntimeCommandException('This value cannot be blank');
+            }
+
+            return $input;
+        };
+
         $definition = $command->getDefinition();
 
         // Tables
-        $command->addArgument('table', InputArgument::OPTIONAL, 'Choose a table for this callback');
+        $command->addArgument('table', InputArgument::REQUIRED, 'Choose a table for this callback');
         $argument = $definition->getArgument('table');
 
         $tables = $this->getTables();
@@ -69,7 +80,7 @@ class MakeDcaCallback extends AbstractMaker
         $input->setArgument('table', $io->askQuestion($question));
 
         // Targets
-        $command->addArgument('target', InputArgument::OPTIONAL, 'Choose a target for this callback');
+        $command->addArgument('target', InputArgument::REQUIRED, 'Choose a target for this callback');
         $argument = $definition->getArgument('target');
 
         $targets = $this->getTargets();
@@ -78,6 +89,29 @@ class MakeDcaCallback extends AbstractMaker
         $question->setAutocompleterValues(array_keys($targets));
 
         $input->setArgument('target', $io->askQuestion($question));
+
+        // Dependencies
+        $target = $input->getArgument('target');
+
+        /** @var CallbackDefinition $callback */
+        $callback = $targets[$target];
+
+        $callbackDependencies = $callback->getDependencies();
+
+        if (count($callbackDependencies) > 0) {
+            foreach ($callbackDependencies as $callbackDependency) {
+                $command
+                    ->addArgument($callbackDependency, InputArgument::REQUIRED, sprintf('Please choose a value for "%s"', $callbackDependency))
+                ;
+
+                $argument = $definition->getArgument($callbackDependency);
+
+                $question = new Question($argument->getDescription());
+                $question->setValidator($requiredValidator);
+
+                $input->setArgument($callbackDependency, $io->askQuestion($question));
+            }
+        }
     }
 
     public function configureDependencies(DependencyBuilder $dependencies): void
@@ -101,17 +135,22 @@ class MakeDcaCallback extends AbstractMaker
 
         $methodName = 'onCallback';
 
-        /** @var MethodDefinition $definition */
-        $definition = $availableTargets[$target];
-        $signature = $definition->getMethodSignature($methodName);
+        /** @var CallbackDefinition $callback */
+        $callback = $availableTargets[$target];
+        $method = $callback->getMethodDefinition();
+        $signature = $method->getMethodSignature($methodName);
 
         $elementDetails = $generator->createClassNameDetails($name, 'EventListener\\');
+
+        foreach ($callback->getDependencies() as $dependencyName) {
+            $target = str_replace('{' . $dependencyName . '}', $input->getArgument($dependencyName), $target);
+        }
 
         $this->classGenerator->generate([
             'source' => 'dca-callback/Callback.tpl.php',
             'fqcn' => $elementDetails->getFullName(),
             'variables' => [
-                'class_name' => $elementDetails->getShortName(),
+                'className' => $elementDetails->getShortName(),
                 'target' => $target,
                 'table' => $table,
                 'signature' => $signature,
@@ -141,57 +180,57 @@ class MakeDcaCallback extends AbstractMaker
     private function getTargets(): array
     {
         return [
-            'config.onload' => new MethodDefinition('void', [
+            'config.onload' => new CallbackDefinition(new MethodDefinition('void', [
                 'dataContainer' => '\Contao\DataContainer',
-            ]),
-            'config.oncreate' => new MethodDefinition('void', [
+            ])),
+            'config.oncreate' => new CallbackDefinition(new MethodDefinition('void', [
                 'table' => 'string',
                 'insertId' => 'int',
                 'fields' => 'array',
                 'dataContainer' => '\Contao\DataContainer',
-            ]),
-            'config.onsubmit' => new MethodDefinition('void', [
+            ])),
+            'config.onsubmit' => new CallbackDefinition(new MethodDefinition('void', [
                 // Since there is multiple parameters for multiple calls
                 // we can't safely assume the correct parameter names and types
-            ]),
-            'config.ondelete' => new MethodDefinition('void', [
+            ])),
+            'config.ondelete' => new CallbackDefinition(new MethodDefinition('void', [
                 'dataContainer' => '\Contao\DataContainer',
                 'id' => 'int',
-            ]),
-            'config.oncut' => new MethodDefinition('void', [
+            ])),
+            'config.oncut' => new CallbackDefinition(new MethodDefinition('void', [
                 'dataContainer' => '\Contao\DataContainer',
-            ]),
-            'config.oncopy' => new MethodDefinition('void', [
+            ])),
+            'config.oncopy' => new CallbackDefinition(new MethodDefinition('void', [
                 'id' => 'int',
                 'dataContainer' => '\Contao\DataContainer',
-            ]),
-            'config.oncreate_version' => new MethodDefinition('void', [
+            ])),
+            'config.oncreate_version' => new CallbackDefinition(new MethodDefinition('void', [
                 'table' => 'string',
                 'pid' => 'int',
                 'versionNumber' => 'int',
                 'recordData' => 'array',
-            ]),
-            'config.onrestore_version' => new MethodDefinition('void', [
+            ])),
+            'config.onrestore_version' => new CallbackDefinition(new MethodDefinition('void', [
                 'table' => 'string',
                 'pid' => 'int',
                 'versionNumber' => 'int',
                 'recordData' => 'array',
-            ]),
-            'config.onundo' => new MethodDefinition('void', [
+            ])),
+            'config.onundo' => new CallbackDefinition(new MethodDefinition('void', [
                 'table' => 'string',
                 'recordData' => 'array',
                 'dataContainer' => '\Contao\DataContainer',
-            ]),
-            'config.oninvalidate_cache_tags' => new MethodDefinition('array', [
+            ])),
+            'config.oninvalidate_cache_tags' => new CallbackDefinition(new MethodDefinition('array', [
                 'dataContainer' => '\Contao\DataContainer',
                 'tags' => 'array',
-            ]),
-            'config.onshow' => new MethodDefinition('array', [
+            ])),
+            'config.onshow' => new CallbackDefinition(new MethodDefinition('array', [
                 'modalData' => 'array',
                 'recordData' => 'array',
                 'dataContainer' => '\Contao\DataContainer',
-            ]),
-            'list.sorting.paste_button' => new MethodDefinition('string', [
+            ])),
+            'list.sorting.paste_button' => new CallbackDefinition(new MethodDefinition('string', [
                 'dataContainer' => '\Contao\DataContainer',
                 'recordData' => 'array',
                 'table' => 'string',
@@ -200,33 +239,33 @@ class MakeDcaCallback extends AbstractMaker
                 'children' => 'array',
                 'previousLabel' => 'string',
                 'nextLabel' => 'string',
-            ]),
-            'list.sorting.child_record' => new MethodDefinition('string', [
+            ])),
+            'list.sorting.child_record' => new CallbackDefinition(new MethodDefinition('string', [
                 'recordData' => 'array',
-            ]),
-            'list.sorting.header' => new MethodDefinition('array', [
+            ])),
+            'list.sorting.header' => new CallbackDefinition(new MethodDefinition('array', [
                 'currentHeaderLabels' => 'array',
                 'dataContainer' => '\Contao\DataContainer',
-            ]),
-            'list.sorting.panel_callback.subpanel' => new MethodDefinition('string', [
+            ])),
+            'list.sorting.panel_callback.subpanel' => new CallbackDefinition(new MethodDefinition('string', [
                 'dataContainer' => '\Contao\DataContainer',
-            ]),
-            'list.label.group' => new MethodDefinition('string', [
+            ])),
+            'list.label.group' => new CallbackDefinition(new MethodDefinition('string', [
                 'group' => 'string',
                 'mode' => 'string',
                 'field' => 'string',
                 'recordData' => 'array',
                 'dataContainer' => '\Contao\DataContainer',
-            ]),
-            'list.label.label' => new MethodDefinition('array', [
+            ])),
+            'list.label.label' => new CallbackDefinition(new MethodDefinition('array', [
                 'recordData' => 'array',
                 'currentLabel' => 'string',
                 'dataContainer' => '\Contao\DataContainer',
 
                 // Since there is multiple parameters for multiple calls
                 // we can't safely assume the following correct parameter names and types
-            ]),
-            'list.global_operations.operation.button' => new MethodDefinition('string', [
+            ])),
+            'list.global_operations.{operation}.button' => new CallbackDefinition(new MethodDefinition('string', [
                 'buttonHref' => '?string',
                 'label' => 'string',
                 'title' => 'string',
@@ -234,8 +273,8 @@ class MakeDcaCallback extends AbstractMaker
                 'htmlAttributes' => 'string',
                 'table' => 'string',
                 'rootRecordIds' => 'array',
-            ]),
-            'list.operations.operation.button' => new MethodDefinition('string', [
+            ]), ['operation']),
+            'list.operations.{operation}.button' => new CallbackDefinition(new MethodDefinition('string', [
                 'recordData' => 'array',
                 'buttonHref' => '?string',
                 'label' => 'string',
@@ -249,7 +288,31 @@ class MakeDcaCallback extends AbstractMaker
                 'previousLabel' => 'string',
                 'nextLabel' => 'string',
                 'dataContainer' => '\Contao\DataContainer',
-            ])
+            ]), ['operation']),
+            'fields.{field}.options' => new CallbackDefinition(new MethodDefinition('array', [
+                'dataContainer' => '\Contao\DataContainer',
+            ]), ['field']),
+            'fields.{field}.input_field' => new CallbackDefinition(new MethodDefinition('string', [
+                'dataContainer' => '\Contao\DataContainer',
+            ]), ['field']),
+            'fields.{field}.load' => new CallbackDefinition(new MethodDefinition(null, [
+                'currentValue' => null,
+
+                // Since there is multiple parameters for multiple calls
+                // we can't safely assume the following correct parameter names and types
+            ]), ['field']),
+            'fields.{field}.save' => new CallbackDefinition(new MethodDefinition(null, [
+                'currentValue' => null,
+
+                // Since there is multiple parameters for multiple calls
+                // we can't safely assume the following correct parameter names and types
+            ]), ['field']),
+            'fields.{field}.wizard' => new CallbackDefinition(new MethodDefinition('string', [
+                'dataContainer' => '\Contao\DataContainer',
+            ]), ['field']),
+            'fields.{field}.xlabel' => new CallbackDefinition(new MethodDefinition('string', [
+                'dataContainer' => '\Contao\DataContainer',
+            ]), ['field']),
         ];
     }
 }
