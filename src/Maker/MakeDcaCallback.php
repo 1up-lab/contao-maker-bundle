@@ -138,6 +138,7 @@ class MakeDcaCallback extends AbstractMaker
         $callback = $availableTargets[$target];
         $method = $callback->getMethodDefinition();
         $signature = $method->getMethodSignature($methodName);
+        $uses = $method->getUses();
 
         $elementDetails = $generator->createClassNameDetails($name, 'EventListener\\');
 
@@ -153,6 +154,7 @@ class MakeDcaCallback extends AbstractMaker
                 'target' => $target,
                 'table' => $table,
                 'signature' => $signature,
+                'uses' => $uses,
             ],
         ]);
 
@@ -180,28 +182,28 @@ class MakeDcaCallback extends AbstractMaker
     {
         return [
             'config.onload' => new CallbackDefinition(new MethodDefinition('void', [
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
             ])),
             'config.oncreate' => new CallbackDefinition(new MethodDefinition('void', [
                 'table' => 'string',
                 'insertId' => 'int',
                 'fields' => 'array',
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
             ])),
             'config.onsubmit' => new CallbackDefinition(new MethodDefinition('void', [
                 // Since there is multiple parameters for multiple calls
                 // we can't safely assume the correct parameter names and types
             ])),
             'config.ondelete' => new CallbackDefinition(new MethodDefinition('void', [
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
                 'id' => 'int',
             ])),
             'config.oncut' => new CallbackDefinition(new MethodDefinition('void', [
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
             ])),
             'config.oncopy' => new CallbackDefinition(new MethodDefinition('void', [
                 'id' => 'int',
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
             ])),
             'config.oncreate_version' => new CallbackDefinition(new MethodDefinition('void', [
                 'table' => 'string',
@@ -218,19 +220,19 @@ class MakeDcaCallback extends AbstractMaker
             'config.onundo' => new CallbackDefinition(new MethodDefinition('void', [
                 'table' => 'string',
                 'recordData' => 'array',
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
             ])),
             'config.oninvalidate_cache_tags' => new CallbackDefinition(new MethodDefinition('array', [
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
                 'tags' => 'array',
             ])),
             'config.onshow' => new CallbackDefinition(new MethodDefinition('array', [
                 'modalData' => 'array',
                 'recordData' => 'array',
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
             ])),
             'list.sorting.paste_button' => new CallbackDefinition(new MethodDefinition('string', [
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
                 'recordData' => 'array',
                 'table' => 'string',
                 'isCircularReference' => 'bool',
@@ -244,22 +246,22 @@ class MakeDcaCallback extends AbstractMaker
             ])),
             'list.sorting.header' => new CallbackDefinition(new MethodDefinition('array', [
                 'currentHeaderLabels' => 'array',
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
             ])),
             'list.sorting.panel_callback.subpanel' => new CallbackDefinition(new MethodDefinition('string', [
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
             ])),
             'list.label.group' => new CallbackDefinition(new MethodDefinition('string', [
                 'group' => 'string',
                 'mode' => 'string',
                 'field' => 'string',
                 'recordData' => 'array',
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
             ])),
             'list.label.label' => new CallbackDefinition(new MethodDefinition('array', [
                 'recordData' => 'array',
                 'currentLabel' => 'string',
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
 
                 // Since there is multiple parameters for multiple calls
                 // we can't safely assume the following correct parameter names and types
@@ -286,13 +288,13 @@ class MakeDcaCallback extends AbstractMaker
                 'isCircularReference' => 'bool',
                 'previousLabel' => 'string',
                 'nextLabel' => 'string',
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
             ]), ['operation']),
             'fields.{field}.options' => new CallbackDefinition(new MethodDefinition('array', [
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
             ]), ['field']),
             'fields.{field}.input_field' => new CallbackDefinition(new MethodDefinition('string', [
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
             ]), ['field']),
             'fields.{field}.load' => new CallbackDefinition(new MethodDefinition(null, [
                 'currentValue' => null,
@@ -307,10 +309,10 @@ class MakeDcaCallback extends AbstractMaker
                 // we can't safely assume the following correct parameter names and types
             ]), ['field']),
             'fields.{field}.wizard' => new CallbackDefinition(new MethodDefinition('string', [
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
             ]), ['field']),
             'fields.{field}.xlabel' => new CallbackDefinition(new MethodDefinition('string', [
-                'dataContainer' => '\Contao\DataContainer',
+                'dataContainer' => 'Contao\DataContainer',
             ]), ['field']),
         ];
     }

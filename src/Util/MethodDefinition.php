@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace Contao\MakerBundle\Util;
 
+use Symfony\Bundle\MakerBundle\Str;
+
 class MethodDefinition
 {
     private $returnType;
@@ -33,6 +35,15 @@ class MethodDefinition
         return $this->parameters;
     }
 
+    public function getUses(): array
+    {
+        $objectTypeHints = array_filter($this->parameters, static function ($type) {
+            return class_exists($type, true);
+        });
+
+        return array_unique($objectTypeHints);
+    }
+
     public function getMethodSignature(string $methodName): string
     {
         $template = 'public function %s(%s)%s';
@@ -46,6 +57,11 @@ class MethodDefinition
 
             $paramName = str_replace('&', '', $name);
             [$paramType, $paramDefaultValue] = \is_array($type) ? $type : [$type, null];
+
+            if (null !== $paramType && class_exists($paramType, true)) {
+                $paramType = Str::getShortClassName($paramType);
+            }
+
             $paramReference = '&' === substr($name, 0, 1);
 
             $parameterTemplate = sprintf($parameterTemplate, $paramType, $paramReference ? '&' : '', $paramName);
