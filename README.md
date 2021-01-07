@@ -1,7 +1,7 @@
 # The Contao Maker Bundle
 
-[![](https://img.shields.io/packagist/v/contao/maker-bundle.svg?style=flat-square)](https://packagist.org/packages/contao/maker-bundle)
-[![](https://img.shields.io/packagist/dt/contao/maker-bundle.svg?style=flat-square)](https://packagist.org/packages/contao/maker-bundle)
+![CI](https://github.com/1up-lab/contao-maker-bundle/workflows/CI/badge.svg)
+[![Total Downloads](https://poser.pugx.org/contao/maker-bundle/d/total.png)](https://packagist.org/packages/contao/maker-bundle)
 
 The Contao Maker bundle allows you to generate Content Elements, Frontend Modules and
 Hooks using interactive commands.
