@@ -13,7 +13,7 @@
     "require": {
         "php": ">=7.3",
         "ext-dom": "*",
-        "contao/core-bundle": "^4.4",
+        "contao/core-bundle": "^4.9",
         "symfony/maker-bundle": "^1.0"
     },
     "require-dev": {
