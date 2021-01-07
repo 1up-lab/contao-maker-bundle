@@ -15,7 +15,7 @@ namespace Contao\MakerBundle\Tests\Util;
 use Contao\MakerBundle\Util\MethodDefinition;
 use PHPUnit\Framework\TestCase;
 
-class HookDefinitionTest extends TestCase
+class MethodDefinitionTest extends TestCase
 {
     public function testCreationWithReturnValue(): void
     {
@@ -26,8 +26,8 @@ class HookDefinitionTest extends TestCase
 
         $hookDefinition = new MethodDefinition($returnType, $parameters);
 
-        $this->assertSame($returnType, $hookDefinition->getReturnType());
-        $this->assertSame($parameters, $hookDefinition->getParameters());
+        self::assertSame($returnType, $hookDefinition->getReturnType());
+        self::assertSame($parameters, $hookDefinition->getParameters());
     }
 
     public function testCreationWithoutReturnValue(): void
@@ -37,8 +37,8 @@ class HookDefinitionTest extends TestCase
 
         $hookDefinition = new MethodDefinition($returnType, $parameters);
 
-        $this->assertSame($returnType, $hookDefinition->getReturnType());
-        $this->assertSame($parameters, $hookDefinition->getParameters());
+        self::assertSame($returnType, $hookDefinition->getReturnType());
+        self::assertSame($parameters, $hookDefinition->getParameters());
     }
 
     /**
@@ -48,7 +48,7 @@ class HookDefinitionTest extends TestCase
     {
         $hookDefinition = new MethodDefinition($returnType, $parameters);
 
-        $this->assertSame($signature, $hookDefinition->getMethodSignature('__invoke'));
+        self::assertSame($signature, $hookDefinition->getMethodSignature('__invoke'));
     }
 
     public function hookProvider()

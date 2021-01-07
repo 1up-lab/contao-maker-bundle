@@ -1,10 +1,16 @@
 {
     "name": "contao/maker-bundle",
-    "description": "The Contao Maker Bundle helps you create empty content elements, modules, hooks and more.",
-    "keywords": ["contao", "generator", "code generator", "scaffolding", "scaffold"],
     "type": "contao-bundle",
+    "description": "The Contao Maker Bundle helps you create empty content elements, modules, hooks and more.",
+    "keywords": [
+        "contao",
+        "generator",
+        "code generator",
+        "scaffolding",
+        "scaffold"
+    ],
     "license": "LGPL-3.0-or-later",
-    "require":{
+    "require": {
         "php": ">=7.3",
         "ext-dom": "*",
         "contao/core-bundle": "^4.4",
@@ -16,12 +22,20 @@
         "phpunit/phpunit": "^7.0",
         "symfony/phpunit-bridge": "^3.4.5"
     },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "contao-manager-plugin": "Contao\\MakerBundle\\ContaoManagerPlugin"
+    },
     "autoload": {
         "psr-4": {
             "Contao\\MakerBundle\\": "src/"
         }
     },
-    "extra": {
-        "contao-manager-plugin": "Contao\\MakerBundle\\ContaoManagerPlugin"
+    "autoload-dev": {
+        "psr-4": {
+            "Contao\\MakerBundle\\Tests\\": "tests/"
+        }
     }
 }
