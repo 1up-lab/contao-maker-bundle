@@ -1,0 +1,174 @@
+name: CI
+
+on:
+    pull_request: ~
+    push:
+        branches:
+            - master
+        tags:
+            - '*'
+    schedule:
+        - cron: 0 13 * * MON,TUE
+
+jobs:
+    coverage:
+        name: Coverage
+        runs-on: ubuntu-latest
+        if: github.event_name != 'schedule'
+        steps:
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 7.4
+                  extensions: dom, fileinfo, filter, gd, hash, intl, json, mbstring, pcre, pdo, zlib
+                  tools: flex
+                  coverage: pcov
+
+            - name: Checkout
+              uses: actions/checkout@v1
+
+            - name: Install the dependencies
+              run: composer install --no-interaction --no-progress
+
+            - name: Generate the coverage report
+              run: php -d pcov.enabled=1 vendor/bin/phpunit --testsuite=coverage --coverage-clover=clover.xml --colors=always
+
+            - name: Upload the coverage report
+              uses: codecov/codecov-action@v1
+              with:
+                  file: ./clover.xml
+                  fail_ci_if_error: true
+
+    coding-style:
+        name: Coding Style
+        runs-on: ubuntu-latest
+        if: github.event_name == 'pull_request'
+        steps:
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 7.4
+                  extensions: dom, fileinfo, filter, gd, hash, intl, json, mbstring, pcre, pdo, zlib
+                  tools: flex
+                  coverage: none
+
+            - name: Checkout
+              uses: actions/checkout@v1
+
+            - name: Install the dependencies
+              run: |
+                  composer install --no-interaction --no-progress
+                  composer bin ecs install --no-interaction --no-progress
+                  composer bin phpstan install --no-interaction --no-progress
+                  composer bin psalm install --no-interaction --no-progress
+
+            - name: Check the coding standard
+              run: |
+                  tools/ecs/vendor/bin/ecs check src tests --config tools/ecs/vendor/contao/easy-coding-standard/config/default.php --no-progress-bar --ansi
+
+            - name: Analyze the code
+              run: |
+                  tools/phpstan/vendor/bin/phpstan analyse src tests --level=max --no-progress
+                  tools/psalm/vendor/bin/psalm --no-suggestions --no-progress
+
+            - name: Analyze the YAML files
+              run: |
+                  python3 -m pip install --upgrade pip
+                  python3 -m pip install --upgrade yamllint
+                  /home/runner/.local/bin/yamllint .
+
+    tests:
+        name: PHP ${{ matrix.php }}
+        runs-on: ubuntu-latest
+        if: github.event_name != 'push'
+        strategy:
+            fail-fast: false
+            matrix:
+                php: [7.3, 7.4]
+        steps:
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+                  extensions: dom, fileinfo, filter, gd, hash, intl, json, mbstring, pcre, pdo_mysql, zlib
+                  tools: flex
+                  coverage: none
+
+            - name: Checkout
+              uses: actions/checkout@v1
+
+            - name: Install the dependencies
+              run: composer install --no-interaction --no-progress
+
+            - name: Run the unit tests
+              run: vendor/bin/phpunit --colors=always
+
+    php8:
+        name: PHP 8.0
+        runs-on: ubuntu-latest
+        if: github.event_name != 'push'
+        steps:
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.0
+                  extensions: dom, fileinfo, filter, gd, hash, intl, json, mbstring, pcre, pdo_mysql, zlib
+                  tools: flex
+                  coverage: none
+
+            - name: Checkout
+              uses: actions/checkout@v1
+
+            - name: Install the dependencies
+              run: composer install --ignore-platform-reqs --no-interaction --no-progress
+
+            - name: Run the unit tests
+              run: vendor/bin/phpunit --colors=always
+
+    prefer-lowest:
+        name: Prefer Lowest
+        runs-on: ubuntu-latest
+        if: github.event_name != 'push'
+        steps:
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 7.4
+                  extensions: dom, fileinfo, filter, gd, hash, intl, json, mbstring, pcre, pdo_mysql, zlib
+                  tools: flex
+                  coverage: none
+
+            - name: Checkout
+              uses: actions/checkout@v1
+
+            - name: Install the dependencies
+              run: composer update --prefer-lowest --prefer-stable --no-interaction --no-progress
+
+            - name: Run the unit tests
+              run: vendor/bin/phpunit --colors=always
+
+    windows:
+        name: Windows
+        runs-on: windows-latest
+        if: github.event_name != 'push'
+        steps:
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 7.4
+                  extensions: dom, fileinfo, filter, gd, hash, intl, json, mbstring, mysqli, pcre, pdo_mysql, zlib
+                  ini-values: memory_limit=1G
+                  tools: flex
+                  coverage: none
+
+            - name: Adjust the Git autocrlf setting
+              run: git config --global core.autocrlf false
+
+            - name: Checkout
+              uses: actions/checkout@v1
+
+            - name: Install the dependencies
+              run: composer install --no-interaction --no-progress
+
+            - name: Run the unit tests
+              run: vendor/bin/phpunit.bat --colors=always
