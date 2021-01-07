@@ -45,10 +45,10 @@
             "@psalm"
         ],
         "cs-fixer": [
-            "tools/ecs/vendor/bin/ecs check *-bundle/bin *-bundle/src *-bundle/tests --config tools/ecs/vendor/contao/easy-coding-standard/config/default.php --fix --ansi"
+            "tools/ecs/vendor/bin/ecs check src tests --config tools/ecs/vendor/contao/easy-coding-standard/config/default.php --fix --ansi"
         ],
         "phpstan": [
-            "tools/phpstan/vendor/bin/phpstan analyze core-bundle/src core-bundle/tests --level=5 --memory-limit=1G --ansi"
+            "tools/phpstan/vendor/bin/phpstan analyze src tests --level=max --memory-limit=1G --ansi"
         ],
         "psalm": [
             "tools/psalm/vendor/bin/psalm --no-suggestions"

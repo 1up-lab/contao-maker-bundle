@@ -37,13 +37,16 @@ class MethodDefinition
 
     public function getUses(): array
     {
-        $objectTypeHints = array_filter($this->parameters, static function ($type) {
-            if (null === $type) {
-                return false;
-            }
+        $objectTypeHints = array_filter(
+            $this->parameters,
+            static function ($type) {
+                if (null === $type) {
+                    return false;
+                }
 
-            return class_exists($type, true);
-        });
+                return class_exists($type, true);
+            }
+        );
 
         return array_unique($objectTypeHints);
     }
@@ -60,13 +63,13 @@ class MethodDefinition
             $parameterTemplate = '%s %s$%s';
 
             $paramName = str_replace('&', '', $name);
-            [$paramType, $paramDefaultValue] = \is_array($type) ? $type : [$type, null];
+            [$paramType] = \is_array($type) ? $type : [$type, null];
 
             if (null !== $paramType && class_exists($paramType, true)) {
                 $paramType = Str::getShortClassName($paramType);
             }
 
-            $paramReference = '&' === substr($name, 0, 1);
+            $paramReference = 0 === strpos($name, '&');
 
             $parameterTemplate = sprintf($parameterTemplate, $paramType, $paramReference ? '&' : '', $paramName);
             $parameterTemplate = trim($parameterTemplate);

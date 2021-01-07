@@ -107,6 +107,7 @@ class MakeFrontendModule extends AbstractFragmentMaker
             ]);
 
             $i = 0;
+
             while (true) {
                 $hasNext = $input->hasArgument('addAnotherTranslation_'.$i);
 

@@ -26,12 +26,8 @@ class LanguageFileGenerator implements GeneratorInterface
     private $xliffMerger;
     private $directoryLocator;
 
-    public function __construct(
-        FileManager $fileManager,
-        Filesystem $filesystem,
-        XliffMerger $xliffMerger,
-        ContaoDirectoryLocator $directoryLocator
-    ) {
+    public function __construct(FileManager $fileManager, Filesystem $filesystem, XliffMerger $xliffMerger, ContaoDirectoryLocator $directoryLocator)
+    {
         $this->fileManager = $fileManager;
         $this->filesystem = $filesystem;
         $this->xliffMerger = $xliffMerger;

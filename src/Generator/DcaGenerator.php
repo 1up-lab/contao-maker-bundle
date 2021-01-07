@@ -26,12 +26,8 @@ class DcaGenerator implements GeneratorInterface
     private $generator;
     private $directoryLocator;
 
-    public function __construct(
-        Filesystem $filesystem,
-        FileManager $fileManager,
-        Generator $generator,
-        ContaoDirectoryLocator $directoryLocator
-    ) {
+    public function __construct(Filesystem $filesystem, FileManager $fileManager, Generator $generator, ContaoDirectoryLocator $directoryLocator)
+    {
         $this->filesystem = $filesystem;
         $this->fileManager = $fileManager;
         $this->generator = $generator;

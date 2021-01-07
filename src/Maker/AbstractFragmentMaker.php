@@ -38,14 +38,8 @@ abstract class AbstractFragmentMaker extends AbstractMaker
     protected $languageFileGenerator;
     protected $contaoDirectoryLocator;
 
-    public function __construct(
-        ContaoFramework $framework,
-        TemplateGenerator $templateGenerator,
-        ClassGenerator $classGenerator,
-        DcaGenerator $dcaGenerator,
-        LanguageFileGenerator $languageFileGenerator,
-        ContaoDirectoryLocator $contaoDirectoryLocator
-    ) {
+    public function __construct(ContaoFramework $framework, TemplateGenerator $templateGenerator, ClassGenerator $classGenerator, DcaGenerator $dcaGenerator, LanguageFileGenerator $languageFileGenerator, ContaoDirectoryLocator $contaoDirectoryLocator)
+    {
         $this->framework = $framework;
         $this->templateGenerator = $templateGenerator;
         $this->classGenerator = $classGenerator;
@@ -106,6 +100,7 @@ abstract class AbstractFragmentMaker extends AbstractMaker
             }
 
             $i = 0;
+
             while (true) {
                 $command->addArgument('addAnotherTranslation_'.$i, InputArgument::OPTIONAL);
                 $question = new ConfirmationQuestion('Do you want to add another translation?', false);

@@ -26,8 +26,8 @@ class MethodDefinitionTest extends TestCase
 
         $hookDefinition = new MethodDefinition($returnType, $parameters);
 
-        self::assertSame($returnType, $hookDefinition->getReturnType());
-        self::assertSame($parameters, $hookDefinition->getParameters());
+        $this->assertSame($returnType, $hookDefinition->getReturnType());
+        $this->assertSame($parameters, $hookDefinition->getParameters());
     }
 
     public function testCreationWithoutReturnValue(): void
@@ -37,8 +37,8 @@ class MethodDefinitionTest extends TestCase
 
         $hookDefinition = new MethodDefinition($returnType, $parameters);
 
-        self::assertSame($returnType, $hookDefinition->getReturnType());
-        self::assertSame($parameters, $hookDefinition->getParameters());
+        $this->assertSame($returnType, $hookDefinition->getReturnType());
+        $this->assertSame($parameters, $hookDefinition->getParameters());
     }
 
     /**
@@ -48,7 +48,7 @@ class MethodDefinitionTest extends TestCase
     {
         $hookDefinition = new MethodDefinition($returnType, $parameters);
 
-        self::assertSame($signature, $hookDefinition->getMethodSignature('__invoke'));
+        $this->assertSame($signature, $hookDefinition->getMethodSignature('__invoke'));
     }
 
     public function hookProvider()

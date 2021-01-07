@@ -3,5 +3,12 @@
 /vendor/
 
 # PhpUnit
-/phpunit.xml
 .phpunit.result.cache
+/phpunit.xml
+
+# CS fixer
+/.php_cs.cache
+
+# Tools
+/tools/*/composer.lock
+/tools/*/vendor
