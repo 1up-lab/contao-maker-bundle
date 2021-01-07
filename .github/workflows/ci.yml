@@ -7,14 +7,14 @@ on:
             - master
         tags:
             - '*'
-    schedule:
-        - cron: 0 13 * * MON,TUE
+#    schedule:
+#        - cron: 0 13 * * MON,TUE
 
 jobs:
     coverage:
         name: Coverage
         runs-on: ubuntu-latest
-        if: github.event_name != 'schedule'
+        # if: github.event_name != 'schedule'
         steps:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -42,7 +42,7 @@ jobs:
     coding-style:
         name: Coding Style
         runs-on: ubuntu-latest
-        if: github.event_name == 'pull_request'
+        # if: github.event_name == 'pull_request'
         steps:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -80,7 +80,7 @@ jobs:
     tests:
         name: PHP ${{ matrix.php }}
         runs-on: ubuntu-latest
-        if: github.event_name != 'push'
+        # if: github.event_name != 'push'
         strategy:
             fail-fast: false
             matrix:
@@ -106,7 +106,7 @@ jobs:
     php8:
         name: PHP 8.0
         runs-on: ubuntu-latest
-        if: github.event_name != 'push'
+        # if: github.event_name != 'push'
         steps:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -128,7 +128,7 @@ jobs:
     prefer-lowest:
         name: Prefer Lowest
         runs-on: ubuntu-latest
-        if: github.event_name != 'push'
+        # if: github.event_name != 'push'
         steps:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -150,7 +150,7 @@ jobs:
     windows:
         name: Windows
         runs-on: windows-latest
-        if: github.event_name != 'push'
+        # if: github.event_name != 'push'
         steps:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
