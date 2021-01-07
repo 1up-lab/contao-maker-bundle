@@ -2,29 +2,29 @@ services:
     contao_maker.generator.template:
         class: Contao\MakerBundle\Generator\TemplateGenerator
         arguments:
-            - "@maker.generator"
-            - "@maker.file_manager"
+            - '@maker.generator'
+            - '@maker.file_manager'
 
     contao_maker.generator.class:
         class: Contao\MakerBundle\Generator\ClassGenerator
         arguments:
-            - "@maker.generator"
+            - '@maker.generator'
 
     contao_maker.generator.dca:
         class: Contao\MakerBundle\Generator\DcaGenerator
         arguments:
-            - "@filesystem"
-            - "@maker.file_manager"
-            - "@maker.generator"
-            - "@contao_maker.contao_directory_locator"
+            - '@filesystem'
+            - '@maker.file_manager'
+            - '@maker.generator'
+            - '@contao_maker.contao_directory_locator'
 
     contao_maker.generator.language_file:
         class: Contao\MakerBundle\Generator\LanguageFileGenerator
         arguments:
-            - "@maker.file_manager"
-            - "@filesystem"
-            - "@contao_maker.xliff_merger"
-            - "@contao_maker.contao_directory_locator"
+            - '@maker.file_manager'
+            - '@filesystem'
+            - '@contao_maker.xliff_merger'
+            - '@contao_maker.contao_directory_locator'
 
     contao_maker.xliff_merger:
         class: Contao\MakerBundle\Util\XliffMerger
@@ -32,5 +32,5 @@ services:
     contao_maker.contao_directory_locator:
         class: Contao\MakerBundle\Filesystem\ContaoDirectoryLocator
         arguments:
-            - "@filesystem"
-            - "%kernel.project_dir%"
+            - '@filesystem'
+            - '%kernel.project_dir%'
