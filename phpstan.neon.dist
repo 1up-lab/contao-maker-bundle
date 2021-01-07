@@ -1,0 +1,27 @@
+includes:
+    - tools/phpstan/vendor/phpstan/phpstan-phpunit/extension.neon
+    - tools/phpstan/vendor/phpstan/phpstan-phpunit/rules.neon
+    - tools/phpstan/vendor/phpstan/phpstan-symfony/extension.neon
+    - tools/phpstan/vendor/phpstan/phpstan-symfony/rules.neon
+
+rules:
+    - SlamPhpStan\SymfonyFilesystemRule
+    - SlamPhpStan\SymfonyProcessRule
+    - TheCodingMachine\PHPStan\Rules\Exceptions\ThrowMustBundlePreviousExceptionRule
+
+parameters:
+    bootstrapFiles:
+        - %rootDir%/../../../vendor/autoload.php
+
+    excludes_analyse:
+        - %currentWorkingDirectory%/src/Resources/*
+
+    ignoreErrors:
+        -
+            message: '#Strict comparison using === between false and array\<string\>\|string\|null will always evaluate to false\.#'
+            path: %currentWorkingDirectory%/src/Maker/Make*.php
+
+    treatPhpDocTypesAsCertain: false
+    checkGenericClassInNonGenericObjectType: false
+    inferPrivatePropertyTypeFromConstructor: true
+    reportUnmatchedIgnoredErrors: false

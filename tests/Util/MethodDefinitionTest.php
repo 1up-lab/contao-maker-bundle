@@ -37,7 +37,7 @@ class MethodDefinitionTest extends TestCase
 
         $hookDefinition = new MethodDefinition($returnType, $parameters);
 
-        $this->assertSame($returnType, $hookDefinition->getReturnType());
+        $this->assertNull($hookDefinition->getReturnType());
         $this->assertSame($parameters, $hookDefinition->getParameters());
     }
 
