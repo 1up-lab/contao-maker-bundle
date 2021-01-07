@@ -17,10 +17,9 @@
         "symfony/maker-bundle": "^1.0"
     },
     "require-dev": {
-        "contao/manager-plugin": "^2.3.1",
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "phpunit/phpunit": "^7.0",
-        "symfony/phpunit-bridge": "^3.4.5"
+        "contao/manager-plugin": "^2.6.2",
+        "phpunit/phpunit": "^8.5",
+        "symfony/phpunit-bridge": "^5.2"
     },
     "config": {
         "sort-packages": true
@@ -37,5 +36,25 @@
         "psr-4": {
             "Contao\\MakerBundle\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "all": [
+            "@unit-tests",
+            "@cs-fixer",
+            "@phpstan",
+            "@psalm"
+        ],
+        "cs-fixer": [
+            "tools/ecs/vendor/bin/ecs check *-bundle/bin *-bundle/src *-bundle/tests --config tools/ecs/vendor/contao/easy-coding-standard/config/default.php --fix --ansi"
+        ],
+        "phpstan": [
+            "tools/phpstan/vendor/bin/phpstan analyze core-bundle/src core-bundle/tests --level=5 --memory-limit=1G --ansi"
+        ],
+        "psalm": [
+            "tools/psalm/vendor/bin/psalm --no-suggestions"
+        ],
+        "unit-tests": [
+            "vendor/bin/phpunit --colors=always"
+        ]
     }
 }
