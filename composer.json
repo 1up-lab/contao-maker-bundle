@@ -30,7 +30,7 @@
             "bin-links": false,
             "target-directory": "tools"
         },
-        "contao-manager-plugin": "Contao\\MakerBundle\\ContaoManagerPlugin"
+        "contao-manager-plugin": "Contao\\MakerBundle\\ContaoManager\\Plugin"
     },
     "autoload": {
         "psr-4": {
