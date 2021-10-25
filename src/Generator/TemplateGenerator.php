@@ -18,8 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TemplateGenerator implements GeneratorInterface
 {
-    private $generator;
-    private $fileManager;
+    private Generator $generator;
+    private FileManager $fileManager;
 
     public function __construct(Generator $generator, FileManager $fileManager)
     {
@@ -55,7 +55,7 @@ class TemplateGenerator implements GeneratorInterface
         ]);
     }
 
-    private function getSourcePath(string $path)
+    private function getSourcePath(string $path): string
     {
         return sprintf('%s/../Resources/skeleton/%s', __DIR__, ltrim($path, '/'));
     }

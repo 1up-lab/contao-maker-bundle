@@ -31,9 +31,9 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class MakeDcaCallback extends AbstractMaker
 {
-    private $framework;
-    private $classGenerator;
-    private $resourceFinder;
+    private ContaoFramework $framework;
+    private ClassGenerator $classGenerator;
+    private ResourceFinder $resourceFinder;
 
     public function __construct(ContaoFramework $framework, ClassGenerator $classGenerator, ResourceFinder $resourceFinder)
     {

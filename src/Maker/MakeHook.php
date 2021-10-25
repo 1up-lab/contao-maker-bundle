@@ -26,7 +26,7 @@ use Symfony\Component\Console\Question\Question;
 
 class MakeHook extends AbstractMaker
 {
-    private $classGenerator;
+    private ClassGenerator $classGenerator;
 
     public function __construct(ClassGenerator $classGenerator)
     {
@@ -42,7 +42,7 @@ class MakeHook extends AbstractMaker
     {
         $command
             ->setDescription('Creates a hook')
-            ->addArgument('className', InputArgument::OPTIONAL, sprintf('Choose a class name for your hook'))
+            ->addArgument('className', InputArgument::OPTIONAL, 'Choose a class name for your hook')
         ;
     }
 

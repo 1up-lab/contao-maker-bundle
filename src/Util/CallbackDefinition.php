@@ -14,13 +14,13 @@ namespace Contao\MakerBundle\Util;
 
 class CallbackDefinition
 {
-    private $dependencies;
-    private $methodDefinition;
+    private MethodDefinition $methodDefinition;
+    private array $dependencies;
 
     public function __construct(MethodDefinition $methodDefinition, array $dependencies = [])
     {
-        $this->dependencies = $dependencies;
         $this->methodDefinition = $methodDefinition;
+        $this->dependencies = $dependencies;
     }
 
     public function getDependencies(): array

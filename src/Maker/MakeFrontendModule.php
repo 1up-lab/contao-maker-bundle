@@ -34,7 +34,7 @@ class MakeFrontendModule extends AbstractFragmentMaker
     {
         $command
             ->setDescription('Creates an empty frontend module')
-            ->addArgument('module', InputArgument::REQUIRED, sprintf('Choose a class name for your frontend module'))
+            ->addArgument('module', InputArgument::REQUIRED, 'Choose a class name for your frontend module')
         ;
 
         $inputConfig->setArgumentAsNonInteractive('module');

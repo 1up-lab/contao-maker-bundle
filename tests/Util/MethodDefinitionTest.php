@@ -51,7 +51,7 @@ class MethodDefinitionTest extends TestCase
         $this->assertSame($signature, $hookDefinition->getMethodSignature('__invoke'));
     }
 
-    public function hookProvider()
+    public function hookProvider(): array
     {
         return [
             [

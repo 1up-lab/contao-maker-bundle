@@ -21,10 +21,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DcaGenerator implements GeneratorInterface
 {
-    private $filesystem;
-    private $fileManager;
-    private $generator;
-    private $directoryLocator;
+    private Filesystem $filesystem;
+    private FileManager $fileManager;
+    private Generator $generator;
+    private ContaoDirectoryLocator $directoryLocator;
 
     public function __construct(Filesystem $filesystem, FileManager $fileManager, Generator $generator, ContaoDirectoryLocator $directoryLocator)
     {
@@ -93,7 +93,7 @@ class DcaGenerator implements GeneratorInterface
         ));
     }
 
-    private function getSourcePath(string $path)
+    private function getSourcePath(string $path): string
     {
         return sprintf('%s/../Resources/skeleton/%s', __DIR__, ltrim($path, '/'));
     }

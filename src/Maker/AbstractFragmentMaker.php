@@ -31,12 +31,12 @@ use Symfony\Component\DependencyInjection\Container;
 
 abstract class AbstractFragmentMaker extends AbstractMaker
 {
-    protected $framework;
-    protected $templateGenerator;
-    protected $classGenerator;
-    protected $dcaGenerator;
-    protected $languageFileGenerator;
-    protected $contaoDirectoryLocator;
+    protected ContaoFramework $framework;
+    protected TemplateGenerator $templateGenerator;
+    protected ClassGenerator $classGenerator;
+    protected DcaGenerator $dcaGenerator;
+    protected LanguageFileGenerator $languageFileGenerator;
+    protected ContaoDirectoryLocator $contaoDirectoryLocator;
 
     public function __construct(ContaoFramework $framework, TemplateGenerator $templateGenerator, ClassGenerator $classGenerator, DcaGenerator $dcaGenerator, LanguageFileGenerator $languageFileGenerator, ContaoDirectoryLocator $contaoDirectoryLocator)
     {

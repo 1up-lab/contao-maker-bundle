@@ -16,8 +16,8 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class ContaoDirectoryLocator
 {
-    private $filesystem;
-    private $projectDirectory;
+    private Filesystem $filesystem;
+    private string $projectDirectory;
 
     public function __construct(Filesystem $filesystem, string $projectDirectory)
     {
@@ -25,7 +25,7 @@ class ContaoDirectoryLocator
         $this->projectDirectory = $projectDirectory;
     }
 
-    public function getConfigDirectory()
+    public function getConfigDirectory(): string
     {
         $directory = sprintf('%s/contao', $this->projectDirectory);
 

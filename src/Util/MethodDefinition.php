@@ -16,8 +16,8 @@ use Symfony\Bundle\MakerBundle\Str;
 
 class MethodDefinition
 {
-    private $returnType;
-    private $parameters;
+    private ?string $returnType;
+    private array $parameters;
 
     public function __construct(?string $returnType, array $parameters)
     {

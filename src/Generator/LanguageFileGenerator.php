@@ -21,10 +21,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LanguageFileGenerator implements GeneratorInterface
 {
-    private $fileManager;
-    private $filesystem;
-    private $xliffMerger;
-    private $directoryLocator;
+    private FileManager $fileManager;
+    private Filesystem $filesystem;
+    private XliffMerger $xliffMerger;
+    private ContaoDirectoryLocator $directoryLocator;
 
     public function __construct(FileManager $fileManager, Filesystem $filesystem, XliffMerger $xliffMerger, ContaoDirectoryLocator $directoryLocator)
     {
@@ -96,7 +96,7 @@ class LanguageFileGenerator implements GeneratorInterface
         ));
     }
 
-    private function getSourcePath(string $path)
+    private function getSourcePath(string $path): string
     {
         return sprintf('%s/../Resources/skeleton/%s', __DIR__, ltrim($path, '/'));
     }

@@ -11,7 +11,7 @@
     ],
     "license": "LGPL-3.0-or-later",
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.4",
         "ext-dom": "*",
         "contao/core-bundle": "^4.9",
         "symfony/maker-bundle": "^1.1"
