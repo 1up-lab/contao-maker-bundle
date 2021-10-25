@@ -174,9 +174,7 @@ class MakeDcaCallback extends AbstractMaker
         $files = $this->resourceFinder->findIn('dca')->depth(0)->files()->name('*.php');
 
         $tables = array_map(
-            static function (SplFileInfo $input) {
-                return str_replace('.php', '', $input->getRelativePathname());
-            },
+            static fn (SplFileInfo $input) => str_replace('.php', '', $input->getRelativePathname()),
             iterator_to_array($files->getIterator())
         );
 
