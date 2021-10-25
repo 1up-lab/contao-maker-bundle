@@ -55,7 +55,7 @@ class MakeHook extends AbstractMaker
 
         $hooks = $this->getAvailableHooks();
 
-        $io->writeln(' <fg=green>Suggested Tables:</>');
+        $io->writeln(' <fg=green>Suggested Hooks:</>');
         $io->listing(array_keys($hooks));
 
         $question = new Question($argument->getDescription());
