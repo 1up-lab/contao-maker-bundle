@@ -25,7 +25,6 @@ class XliffMerger
 
         $importNodes = $this->getImportNodes($document);
 
-        /** @var \DOMElement $importNode */
         foreach ($importNodes as $importNode) {
             $id = $importNode->getAttribute('id');
 
