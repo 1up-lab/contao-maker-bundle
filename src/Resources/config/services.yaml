@@ -3,7 +3,6 @@ services:
         class: Contao\MakerBundle\Generator\TemplateGenerator
         arguments:
             - '@maker.generator'
-            - '@maker.file_manager'
 
     contao_maker.generator.class:
         class: Contao\MakerBundle\Generator\ClassGenerator
@@ -15,7 +14,6 @@ services:
         arguments:
             - '@filesystem'
             - '@maker.file_manager'
-            - '@maker.generator'
             - '@contao_maker.contao_directory_locator'
 
     contao_maker.generator.language_file:

@@ -15,7 +15,6 @@ namespace Contao\MakerBundle\Generator;
 use Contao\MakerBundle\Filesystem\ContaoDirectoryLocator;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\FileManager;
-use Symfony\Bundle\MakerBundle\Generator;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,14 +22,12 @@ class DcaGenerator implements GeneratorInterface
 {
     private Filesystem $filesystem;
     private FileManager $fileManager;
-    private Generator $generator;
     private ContaoDirectoryLocator $directoryLocator;
 
-    public function __construct(Filesystem $filesystem, FileManager $fileManager, Generator $generator, ContaoDirectoryLocator $directoryLocator)
+    public function __construct(Filesystem $filesystem, FileManager $fileManager, ContaoDirectoryLocator $directoryLocator)
     {
         $this->filesystem = $filesystem;
         $this->fileManager = $fileManager;
-        $this->generator = $generator;
         $this->directoryLocator = $directoryLocator;
     }
 

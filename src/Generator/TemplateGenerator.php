@@ -12,19 +12,16 @@ declare(strict_types=1);
 
 namespace Contao\MakerBundle\Generator;
 
-use Symfony\Bundle\MakerBundle\FileManager;
 use Symfony\Bundle\MakerBundle\Generator;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TemplateGenerator implements GeneratorInterface
 {
     private Generator $generator;
-    private FileManager $fileManager;
 
-    public function __construct(Generator $generator, FileManager $fileManager)
+    public function __construct(Generator $generator)
     {
         $this->generator = $generator;
-        $this->fileManager = $fileManager;
     }
 
     public function generate(array $options): string
