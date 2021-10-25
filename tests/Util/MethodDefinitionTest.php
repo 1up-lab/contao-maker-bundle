@@ -44,7 +44,7 @@ class MethodDefinitionTest extends TestCase
     /**
      * @dataProvider hookProvider
      *
-     * @param array[] $parameters
+     * @param array<array> $parameters
      */
     public function testSignatureCreation(string $signature, ?string $returnType, array $parameters): void
     {
@@ -54,7 +54,7 @@ class MethodDefinitionTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<array>
      */
     public function hookProvider(): array
     {

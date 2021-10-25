@@ -19,13 +19,12 @@ class MethodDefinition
     private ?string $returnType;
 
     /**
-     * @var array<string, string|null|array>
+     * @var array<string, (string|array|null)>
      */
     private array $parameters;
 
     /**
-     * @param string|null $returnType
-     * @param array<string, string|null|array> $parameters
+     * @param array<string, (string|array|null)> $parameters
      */
     public function __construct(?string $returnType, array $parameters)
     {
@@ -39,7 +38,7 @@ class MethodDefinition
     }
 
     /**
-     * @return array<string, string|null|array>
+     * @return array<string, (string|array|null)>
      */
     public function getParameters(): array
     {
@@ -47,7 +46,7 @@ class MethodDefinition
     }
 
     /**
-     * @return array<string, string|null|array>
+     * @return array<string, (string|array|null)>
      */
     public function getUses(): array
     {

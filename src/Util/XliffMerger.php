@@ -19,7 +19,7 @@ class XliffMerger
         $body = $root->getElementsByTagName('body')->item(0);
 
         // If there is no body tag, return unchanged node
-        if ($body === null) {
+        if (null === $body) {
             return $root;
         }
 
@@ -32,7 +32,7 @@ class XliffMerger
             $duplicatesPath = new \DOMXPath($root);
             $duplicates = $duplicatesPath->query('//trans-unit[@id=\''.$id.'\']');
 
-            if ($duplicates === false) {
+            if (false === $duplicates) {
                 continue;
             }
 
@@ -66,7 +66,7 @@ class XliffMerger
         $xpath = new \DOMXPath($document);
         $elements = $xpath->query('//trans-unit[@id]');
 
-        if ($elements === false) {
+        if (false === $elements) {
             return $nodes;
         }
 

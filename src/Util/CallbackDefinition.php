@@ -17,12 +17,11 @@ class CallbackDefinition
     private MethodDefinition $methodDefinition;
 
     /**
-     * @var array<int, string> $dependencies
+     * @var array<int, string>
      */
     private array $dependencies;
 
     /**
-     * @param MethodDefinition $methodDefinition
      * @param array<int, string> $dependencies
      */
     public function __construct(MethodDefinition $methodDefinition, array $dependencies = [])
