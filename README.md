@@ -25,6 +25,7 @@ List them all executing this command:
 
   make:contao:content-element  Creates an empty content element
   make:contao:dca-callback     Creates a dca callback
+  make:contao:event-listener   Creates an event listener for a Contao event
   make:contao:frontend-module  Creates an empty frontend module
   make:contao:hook             Creates a hook
 ```

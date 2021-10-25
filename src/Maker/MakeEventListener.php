@@ -42,7 +42,7 @@ class MakeEventListener extends AbstractMaker
     public function configureCommand(Command $command, InputConfiguration $inputConfig): void
     {
         $command
-            ->setDescription('Creates an event-listener')
+            ->setDescription('Creates an event listener for a Contao event')
             ->addArgument('className', InputArgument::OPTIONAL, 'Choose a class name for your event listener')
         ;
     }
