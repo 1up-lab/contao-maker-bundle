@@ -57,7 +57,7 @@ class LanguageFileGenerator implements GeneratorInterface
 
             $mergedDocument = $this->xliffMerger->merge($root, $document);
 
-            $contents = $mergedDocument->saveXML();
+            $contents = (string) $mergedDocument->saveXML();
         }
 
         $this->filesystem->dumpFile($target, $contents);
@@ -87,7 +87,7 @@ class LanguageFileGenerator implements GeneratorInterface
         ]);
     }
 
-    protected function addCommentLine(ConsoleStyle $io, $action, $target): void
+    protected function addCommentLine(ConsoleStyle $io, string $action, string $target): void
     {
         $io->comment(sprintf(
             '%s: %s',

@@ -14,5 +14,8 @@ namespace Contao\MakerBundle\Generator;
 
 interface GeneratorInterface
 {
+    /**
+     * @param array<string, mixed> $options
+     */
     public function generate(array $options): string;
 }

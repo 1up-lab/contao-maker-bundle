@@ -68,7 +68,7 @@ jobs:
 
             - name: Analyze the code
               run: |
-                  tools/phpstan/vendor/bin/phpstan analyse src tests --level=5 --no-progress
+                  tools/phpstan/vendor/bin/phpstan analyse src tests --level=max --no-progress
                   tools/psalm/vendor/bin/psalm --no-suggestions --no-progress
 
             - name: Analyze the YAML files

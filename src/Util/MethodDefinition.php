@@ -17,8 +17,16 @@ use Symfony\Bundle\MakerBundle\Str;
 class MethodDefinition
 {
     private ?string $returnType;
+
+    /**
+     * @var array<string, string|null|array>
+     */
     private array $parameters;
 
+    /**
+     * @param string|null $returnType
+     * @param array<string, string|null|array> $parameters
+     */
     public function __construct(?string $returnType, array $parameters)
     {
         $this->returnType = $returnType;
@@ -30,11 +38,17 @@ class MethodDefinition
         return $this->returnType;
     }
 
+    /**
+     * @return array<string, string|null|array>
+     */
     public function getParameters(): array
     {
         return $this->parameters;
     }
 
+    /**
+     * @return array<string, string|null|array>
+     */
     public function getUses(): array
     {
         $objectTypeHints = array_filter(
@@ -44,7 +58,11 @@ class MethodDefinition
                     return false;
                 }
 
-                return class_exists($type, true);
+                if (\is_array($type)) {
+                    return false;
+                }
+
+                return class_exists((string) $type, true);
             }
         );
 

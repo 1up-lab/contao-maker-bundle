@@ -147,6 +147,9 @@ abstract class AbstractFragmentMaker extends AbstractMaker
         return sprintf('%s/templates/%s_%s.html5', $this->contaoDirectoryLocator->getConfigDirectory(), $this->getTemplatePrefix(), Container::underscore($className));
     }
 
+    /**
+     * @return array<int, string>
+     */
     protected function getExistingCategories(): array
     {
         $this->framework->initialize();

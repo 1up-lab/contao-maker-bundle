@@ -12,3 +12,4 @@
 # Tools
 /tools/*/composer.lock
 /tools/*/vendor
+.php-version

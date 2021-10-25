@@ -103,6 +103,9 @@ class MakeHook extends AbstractMaker
         $this->writeSuccessMessage($io);
     }
 
+    /**
+     * @return array<string, MethodDefinition>
+     */
     private function getAvailableHooks(): array
     {
         return [

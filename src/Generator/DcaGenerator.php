@@ -55,7 +55,11 @@ class DcaGenerator implements GeneratorInterface
         $contents = ltrim($contents);
 
         if ($fileExists) {
-            $contents = sprintf("%s\n\n%s", rtrim(file_get_contents($target)), $contents);
+            /** @var string $targetContent */
+            $targetContent = file_get_contents($target);
+            $targetContent = rtrim($targetContent);
+
+            $contents = sprintf("%s\n\n%s", $targetContent, $contents);
         }
 
         $this->filesystem->dumpFile($target, $contents);
@@ -84,7 +88,7 @@ class DcaGenerator implements GeneratorInterface
         ]);
     }
 
-    protected function addCommentLine(ConsoleStyle $io, $action, $target): void
+    protected function addCommentLine(ConsoleStyle $io, string $action, string $target): void
     {
         $io->comment(sprintf(
             '%s: %s',

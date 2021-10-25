@@ -167,6 +167,9 @@ class MakeDcaCallback extends AbstractMaker
         $this->writeSuccessMessage($io);
     }
 
+    /**
+     * @return array<int, string>
+     */
     private function getTables(): array
     {
         $this->framework->initialize();
@@ -183,6 +186,9 @@ class MakeDcaCallback extends AbstractMaker
         return array_unique($tables);
     }
 
+    /**
+     * @return array<string, CallbackDefinition>
+     */
     private function getTargets(): array
     {
         return [

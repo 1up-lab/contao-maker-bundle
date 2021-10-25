@@ -17,6 +17,12 @@ class XliffMerger
     public function merge(\DOMDocument $root, \DOMDocument $document): \DOMDocument
     {
         $body = $root->getElementsByTagName('body')->item(0);
+
+        // If there is no body tag, return unchanged node
+        if ($body === null) {
+            return $root;
+        }
+
         $importNodes = $this->getImportNodes($document);
 
         /** @var \DOMElement $importNode */
@@ -25,6 +31,10 @@ class XliffMerger
 
             $duplicatesPath = new \DOMXPath($root);
             $duplicates = $duplicatesPath->query('//trans-unit[@id=\''.$id.'\']');
+
+            if ($duplicates === false) {
+                continue;
+            }
 
             if ($duplicates->length > 0) {
                 continue;
@@ -35,7 +45,7 @@ class XliffMerger
         }
 
         // Properly format the output xml
-        $toFormat = $root->saveHTML($root);
+        $toFormat = (string) $root->saveHTML($root);
 
         $root->preserveWhiteSpace = false;
         $root->formatOutput = true;
@@ -46,12 +56,19 @@ class XliffMerger
         return $root;
     }
 
+    /**
+     * @return array<int, \DOMElement>
+     */
     private function getImportNodes(\DOMDocument $document): array
     {
         $nodes = [];
 
         $xpath = new \DOMXPath($document);
         $elements = $xpath->query('//trans-unit[@id]');
+
+        if ($elements === false) {
+            return $nodes;
+        }
 
         /** @var \DOMElement $element */
         foreach ($elements as $element) {

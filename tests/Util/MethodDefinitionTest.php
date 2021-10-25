@@ -43,6 +43,8 @@ class MethodDefinitionTest extends TestCase
 
     /**
      * @dataProvider hookProvider
+     *
+     * @param array[] $parameters
      */
     public function testSignatureCreation(string $signature, ?string $returnType, array $parameters): void
     {
@@ -51,6 +53,9 @@ class MethodDefinitionTest extends TestCase
         $this->assertSame($signature, $hookDefinition->getMethodSignature('__invoke'));
     }
 
+    /**
+     * @return array[]
+     */
     public function hookProvider(): array
     {
         return [
