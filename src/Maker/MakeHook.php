@@ -291,7 +291,214 @@ class MakeHook extends AbstractMaker
                 'page' => 'object',
                 'image' => 'string',
             ]),
-            'getRootPageFromUrl' => new MethodDefinition('\Contao\PageModel', []),
+            'getRootPageFromUrl' => new MethodDefinition('Contao\PageModel', []),
+            'getSearchablePages' => new MethodDefinition('array', [
+                'pages' => 'array',
+                'rootId' => ['int', 'null'],
+                'isSitemap' => ['bool', 'false'],
+                'language' => ['string', 'null'],
+            ]),
+            'getSystemMessages' => new MethodDefinition('string', []),
+            'getUserNavigation' => new MethodDefinition('array', [
+                'modules' => 'array',
+                'showAll' => 'bool',
+            ]),
+            'importUser' => new MethodDefinition('bool', [
+                'username' => 'string',
+                'password' => 'string',
+                'table' => 'string',
+            ]),
+            'indexPage' => new MethodDefinition('void', [
+                'content' => 'string',
+                'pageData' => 'array',
+                '&indexData' => 'array',
+            ]),
+            'initializeSystem' => new MethodDefinition('void', []),
+            'insertTagFlags' => new MethodDefinition(null, [
+                'flag' => 'string',
+                'tag' => 'string',
+                'cachedValue' => 'string',
+                'flags' => 'array',
+                'useCache' => 'bool',
+                'tags' => 'array',
+                'cache' => 'array',
+                '_rit' => 'int',
+                '_cnt' => 'int',
+            ]),
+            'isAllowedToEditComment' => new MethodDefinition('bool', [
+                'parentId' => 'int',
+                'parentTable' => 'string',
+            ]),
+            'isVisibleElement' => new MethodDefinition('bool', [
+                'element' => 'Contao\Model',
+                'isVisible' => 'bool',
+            ]),
+            'listComments' => new MethodDefinition('string', [
+                'comments' => 'array',
+            ]),
+            'loadDataContainer' => new MethodDefinition('void', [
+                'table' => 'string',
+            ]),
+            'loadFormField' => new MethodDefinition('Contao\Widget', [
+                'widget' => 'Contao\Widget',
+                'formId' => 'string',
+                'formData' => 'array',
+                'form' => 'Contao\Form',
+            ]),
+            'loadLanguageFile' => new MethodDefinition('void', [
+                'name' => 'string',
+                'currentLanguage' => 'string',
+                'cacheKey' => 'string',
+            ]),
+            'loadPageDetails' => new MethodDefinition('void', [
+                'parentModels' => 'array',
+                'page' => 'Contao\PageModel',
+            ]),
+            'modifyFrontendPage' => new MethodDefinition('string', [
+                'buffer' => 'string',
+                'templateName' => 'string',
+            ]),
+            'newsListCountItems' => new MethodDefinition(null, [
+                'newsArchives' => 'array',
+                'featuredOnly' => 'bool',
+                'module' => 'Contao\Module',
+            ]),
+            'newsListFetchItems' => new MethodDefinition('', [
+                'newsArchives' => 'array',
+                'featuredOnly' => '?bool',
+                'limit' => 'int',
+                'offset' => 'int',
+                'module' => 'Contao\Module',
+            ]),
+
+            'outputBackendTemplate' => new MethodDefinition('string', [
+                'buffer' => 'string',
+                'template' => 'string',
+            ]),
+            'outputFrontendTemplate' => new MethodDefinition('string', [
+                'buffer' => 'string',
+                'template' => 'string',
+            ]),
+            'parseArticles' => new MethodDefinition('void', [
+                'template' => 'Contao\FrontendTemplate',
+                'newsEntry' => 'array',
+                'module' => 'Contao\Module',
+            ]),
+            'parseDate' => new MethodDefinition('string', [
+                'formattedDate' => 'string',
+                'format' => 'string',
+                'timestamp' => '?int',
+            ]),
+            'parseFrontendTemplate' => new MethodDefinition('string', [
+                'buffer' => 'string',
+                'templateName' => 'string',
+                'template' => 'Contao\FrontendTemplate',
+            ]),
+            'parseTemplate' => new MethodDefinition('void', [
+                'template' => 'Contao\Template',
+            ]),
+            'parseWidget' => new MethodDefinition('string', [
+                'buffer' => 'string',
+                'widget' => 'Contao\Widget',
+            ]),
+            'postAuthenticate' => new MethodDefinition('void', [
+                'user' => 'Contao\User',
+            ]),
+            'postDownload' => new MethodDefinition('void', [
+                'file' => 'string',
+            ]),
+            'postLogin' => new MethodDefinition('void', [
+                'user' => 'Contao\User',
+            ]),
+            'postLogout' => new MethodDefinition('void', [
+                'user' => 'Contao\User',
+            ]),
+            'postUpload' => new MethodDefinition('void', [
+                'files' => 'array',
+            ]),
+            'prepareFormData' => new MethodDefinition('void', [
+                '&submittedData' => 'array',
+                'labels' => 'array',
+                'fields' => 'array',
+                'form' => 'Contao\Form',
+            ]),
+            'printArticleAsPdf' => new MethodDefinition('void', [
+                'articleContent' => 'string',
+                'module' => 'Contao\ModuleArticle',
+            ]),
+            'processFormData' => new MethodDefinition('void', [
+                'submittedData' => 'array',
+                'formData' => 'array',
+                'files' => '?array',
+                'labels' => 'array',
+                'form' => 'Contao\Form',
+            ]),
+            'removeOldFeeds' => new MethodDefinition('array', []),
+            'removeRecipient' => new MethodDefinition('void', [
+                'email' => 'string',
+                'channels' => 'array',
+            ]),
+            'replaceDynamicScriptTags' => new MethodDefinition('string', [
+                'buffer' => 'string',
+            ]),
+            'replaceInsertTags' => new MethodDefinition(null, [
+                'insertTag' => 'string',
+                'useCache' => 'bool',
+                'cachedValue' => 'string',
+                'flags' => 'array',
+                'tags' => 'array',
+                'cache' => 'array',
+                '_rit' => 'int',
+                '_cnt' => 'int',
+            ]),
+            'reviseTable' => new MethodDefinition('?bool', [
+                'table' => 'string',
+                'newRecords' => '?array',
+                'parentTable' => '?string',
+                'childTables' => '?array',
+            ]),
+            'sendNewsletter' => new MethodDefinition('void', [
+                'email' => 'Contao\Email',
+                'newsletter' => 'Contao\Database\Result',
+                'recipient' => 'array',
+                'text' => 'string',
+                'html' => 'string',
+            ]),
+            'setCookie' => new MethodDefinition('object', [
+                'cookie' => 'object',
+            ]),
+            'setNewPassword' => new MethodDefinition('void', [
+                'member' => null,
+                'password' => 'string',
+                'module' => ['Contao\Module', 'null'],
+            ]),
+            'sqlCompileCommands' => new MethodDefinition('array', [
+                'sql' => 'array',
+            ]),
+            'sqlGetFromDB' => new MethodDefinition('array', [
+                'sql' => 'array',
+            ]),
+            'sqlGetFromDca' => new MethodDefinition('array', [
+                'sql' => 'array',
+            ]),
+            'sqlGetFromFile' => new MethodDefinition('array', [
+                'sql' => 'array',
+            ]),
+            'storeFormData' => new MethodDefinition('array', [
+                'data' => 'array',
+                'form' => 'Contao\Form',
+            ]),
+            'updatePersonalData' => new MethodDefinition('void', [
+                'member' => 'Contao\FrontendUser',
+                'data' => 'array',
+                'module' => 'Contao\Module',
+            ]),
+            'validateFormField' => new MethodDefinition('Contao\Widget', [
+                'widget' => 'Contao\Widget',
+                'formId' => 'string',
+                'formData' => 'array',
+                'form' => 'Contao\Form',
+            ]),
         ];
     }
 }

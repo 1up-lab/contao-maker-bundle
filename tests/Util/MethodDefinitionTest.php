@@ -111,6 +111,27 @@ class MethodDefinitionTest extends TestCase
                     'value' => null,
                 ],
             ],
+
+            // Default values
+            [
+                'public function __invoke(array $pages, int $rootId = null, bool $isSitemap = false, string $language = null): array',
+                'array',
+                [
+                    'pages' => 'array',
+                    'rootId' => ['int', 'null'],
+                    'isSitemap' => ['bool', 'false'],
+                    'language' => ['string', 'null'],
+                ],
+            ],
+
+            // Class parameters/class return types
+            [
+                'public function __invoke(Widget $widget): Widget',
+                'Contao\Widget',
+                [
+                    'widget' => 'Contao\Widget',
+                ],
+            ],
         ];
     }
 }
