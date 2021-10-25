@@ -16,7 +16,7 @@ composer require contao/maker-bundle --dev
 
 ## Usage
 
-This bundle provides several commands under the make: namespace.
+This bundle provides several commands under the `make:` namespace.
 List them all executing this command:
 
 ```
