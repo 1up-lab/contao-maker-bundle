@@ -291,6 +291,7 @@ class MakeHook extends AbstractMaker
                 'page' => 'object',
                 'image' => 'string',
             ]),
+            'getRootPageFromUrl' => new MethodDefinition('\Contao\PageModel', []),
         ];
     }
 }
