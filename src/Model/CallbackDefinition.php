@@ -10,7 +10,9 @@ declare(strict_types=1);
  * @license LGPL-3.0-or-later
  */
 
-namespace Contao\MakerBundle\Util;
+namespace Contao\MakerBundle\Model;
+
+use Contao\MakerBundle\Util\MethodDefinition;
 
 class CallbackDefinition
 {

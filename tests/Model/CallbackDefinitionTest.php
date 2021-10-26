@@ -10,9 +10,9 @@ declare(strict_types=1);
  * @license LGPL-3.0-or-later
  */
 
-namespace Contao\MakerBundle\Tests\Util;
+namespace Contao\MakerBundle\Tests\Model;
 
-use Contao\MakerBundle\Util\CallbackDefinition;
+use Contao\MakerBundle\Model\CallbackDefinition;
 use Contao\MakerBundle\Util\MethodDefinition;
 use PHPUnit\Framework\TestCase;
 
