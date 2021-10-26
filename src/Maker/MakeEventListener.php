@@ -13,6 +13,8 @@ declare(strict_types=1);
 namespace Contao\MakerBundle\Maker;
 
 use Contao\CoreBundle\Event\FilterPageTypeEvent;
+use Contao\MakerBundle\Code\ImportExtractor;
+use Contao\MakerBundle\Code\SignatureGenerator;
 use Contao\MakerBundle\Generator\ClassGenerator;
 use Contao\MakerBundle\Model\MethodDefinition;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
@@ -28,10 +30,14 @@ use Symfony\Component\Console\Question\Question;
 class MakeEventListener extends AbstractMaker
 {
     private ClassGenerator $classGenerator;
+    private SignatureGenerator $signatureGenerator;
+    private ImportExtractor $importExtractor;
 
-    public function __construct(ClassGenerator $classGenerator)
+    public function __construct(ClassGenerator $classGenerator, SignatureGenerator $signatureGenerator, ImportExtractor $importExtractor)
     {
         $this->classGenerator = $classGenerator;
+        $this->signatureGenerator = $signatureGenerator;
+        $this->importExtractor = $importExtractor;
     }
 
     public static function getCommandName(): string
@@ -83,8 +89,9 @@ class MakeEventListener extends AbstractMaker
 
         /** @var MethodDefinition $definition */
         $definition = $availableEvents[$event];
-        $signature = $definition->getMethodSignature('__invoke');
-        $uses = $definition->getUses();
+
+        $signature = $this->signatureGenerator->generate($definition, '__invoke');
+        $uses = $this->importExtractor->extract($definition);
 
         $elementDetails = $generator->createClassNameDetails($name, 'EventListener\\');
 

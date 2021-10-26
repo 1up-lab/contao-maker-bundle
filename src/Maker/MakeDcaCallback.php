@@ -14,6 +14,8 @@ namespace Contao\MakerBundle\Maker;
 
 use Contao\CoreBundle\Config\ResourceFinder;
 use Contao\CoreBundle\Framework\ContaoFramework;
+use Contao\MakerBundle\Code\ImportExtractor;
+use Contao\MakerBundle\Code\SignatureGenerator;
 use Contao\MakerBundle\Generator\ClassGenerator;
 use Contao\MakerBundle\Model\CallbackDefinition;
 use Contao\MakerBundle\Model\MethodDefinition;
@@ -34,12 +36,16 @@ class MakeDcaCallback extends AbstractMaker
     private ContaoFramework $framework;
     private ClassGenerator $classGenerator;
     private ResourceFinder $resourceFinder;
+    private SignatureGenerator $signatureGenerator;
+    private ImportExtractor $importExtractor;
 
-    public function __construct(ContaoFramework $framework, ClassGenerator $classGenerator, ResourceFinder $resourceFinder)
+    public function __construct(ContaoFramework $framework, ClassGenerator $classGenerator, ResourceFinder $resourceFinder, SignatureGenerator $signatureGenerator, ImportExtractor $importExtractor)
     {
         $this->framework = $framework;
         $this->classGenerator = $classGenerator;
         $this->resourceFinder = $resourceFinder;
+        $this->signatureGenerator = $signatureGenerator;
+        $this->importExtractor = $importExtractor;
     }
 
     public static function getCommandName(): string
@@ -141,8 +147,9 @@ class MakeDcaCallback extends AbstractMaker
         /** @var CallbackDefinition $callback */
         $callback = $availableTargets[$target];
         $method = $callback->getMethodDefinition();
-        $signature = $method->getMethodSignature('__invoke');
-        $uses = $method->getUses();
+
+        $signature = $this->signatureGenerator->generate($method, '__invoke');
+        $uses = $this->importExtractor->extract($method);
 
         $elementDetails = $generator->createClassNameDetails($name, 'EventListener\\');
 

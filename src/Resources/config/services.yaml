@@ -32,3 +32,9 @@ services:
         arguments:
             - '@filesystem'
             - '%kernel.project_dir%'
+
+    contao_maker.code.import_extractor:
+        class: Contao\MakerBundle\Code\ImportExtractor
+
+    contao_maker.code.signature_generator:
+        class: Contao\MakerBundle\Code\SignatureGenerator

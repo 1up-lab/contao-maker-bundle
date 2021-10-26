@@ -27,6 +27,8 @@ services:
         class: Contao\MakerBundle\Maker\MakeHook
         arguments:
             - '@contao_maker.generator.class'
+            - '@contao_maker.code.signature_generator'
+            - '@contao_maker.code.import_extractor'
         tags:
             - { name: maker.command }
 
@@ -34,6 +36,8 @@ services:
         class: Contao\MakerBundle\Maker\MakeEventListener
         arguments:
             - '@contao_maker.generator.class'
+            - '@contao_maker.code.signature_generator'
+            - '@contao_maker.code.import_extractor'
         tags:
             - { name: maker.command }
 
@@ -43,5 +47,7 @@ services:
             - '@contao.framework'
             - '@contao_maker.generator.class'
             - '@contao.resource_finder'
+            - '@contao_maker.code.signature_generator'
+            - '@contao_maker.code.import_extractor'
         tags:
             - { name: maker.command }
