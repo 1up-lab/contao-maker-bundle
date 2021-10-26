@@ -21,11 +21,11 @@ services:
         arguments:
             - '@maker.file_manager'
             - '@filesystem'
-            - '@contao_maker.xliff_merger'
+            - '@contao_maker.translation.xliff_merger'
             - '@contao_maker.contao_directory_locator'
 
-    contao_maker.xliff_merger:
-        class: Contao\MakerBundle\Util\XliffMerger
+    contao_maker.translation.xliff_merger:
+        class: Contao\MakerBundle\Translation\XliffMerger
 
     contao_maker.contao_directory_locator:
         class: Contao\MakerBundle\Filesystem\ContaoDirectoryLocator
