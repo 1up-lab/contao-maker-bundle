@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace Contao\MakerBundle\Model;
 
-use Contao\MakerBundle\Util\MethodDefinition;
-
 class CallbackDefinition
 {
     private MethodDefinition $methodDefinition;

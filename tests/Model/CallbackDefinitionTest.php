@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Contao\MakerBundle\Tests\Model;
 
 use Contao\MakerBundle\Model\CallbackDefinition;
-use Contao\MakerBundle\Util\MethodDefinition;
+use Contao\MakerBundle\Model\MethodDefinition;
 use PHPUnit\Framework\TestCase;
 
 class CallbackDefinitionTest extends TestCase

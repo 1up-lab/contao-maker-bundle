@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Contao\MakerBundle\Maker;
 
 use Contao\MakerBundle\Generator\ClassGenerator;
-use Contao\MakerBundle\Util\MethodDefinition;
+use Contao\MakerBundle\Model\MethodDefinition;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\DependencyBuilder;
 use Symfony\Bundle\MakerBundle\Generator;

@@ -16,7 +16,7 @@ use Contao\CoreBundle\Config\ResourceFinder;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\MakerBundle\Generator\ClassGenerator;
 use Contao\MakerBundle\Model\CallbackDefinition;
-use Contao\MakerBundle\Util\MethodDefinition;
+use Contao\MakerBundle\Model\MethodDefinition;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\DependencyBuilder;
 use Symfony\Bundle\MakerBundle\Exception\RuntimeCommandException;
